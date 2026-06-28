@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi Tiết Sản Phẩm - Crimson GSC</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      .detail-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        margin-top: 120px;
+      }
+      .gallery-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .main-img {
+        width: 100%;
+        height: 500px;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        object-fit: cover;
+      }
+      .thumb-nails {
+        display: flex;
+        gap: 10px;
+      }
+      .thumb-nails img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .thumb-nails img:hover,
+      .thumb-nails img.active {
+        border-color: var(--primary-color);
+      }
+      .info-title {
+        font-size: 32px;
+        font-weight: 800;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+      .info-series {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+      .info-price {
+        font-size: 28px;
+        font-weight: 800;
+        margin-bottom: 30px;
+        color: var(--text-light);
+      }
+
+      .spec-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+      }
+      .spec-table td {
+        padding: 12px;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 14px;
+      }
+      .spec-table td:first-child {
+        color: var(--text-muted);
+        width: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo-container">
+          <img src="../assets/logo.jpg" alt="Logo" class="logo-img" />
+          <div class="logo-text">
+            <a href="../index.html">CRIMSON<span>.GSC</span></a>
+          </div>
+        </div>
+        <ul class="nav-links">
+          <li><a href="../index.html">Trang Chủ</a></li>
+          <li><a href="danh-muc.html">Danh Mục</a></li>
+          <li><a href="san-pham.html" class="active">Sản Phẩm</a></li>
+          <li><a href="gioi-thieu.html">Giới Thiệu</a></li>
+          <li><a href="lien-he.html">Liên Hệ</a></li>
+        </ul>
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Tìm..." />
+        </div>
+      </nav>
+    </header>
+
+    <main class="main-container detail-container">
+      <!-- BÊN TRÁI: HÌNH ẢNH MÔ HÌNH -->
+      <div class="gallery-container">
+        <img
+          src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600"
+          id="mainDisplayImage"
+          class="main-img"
+        />
+        <div class="thumb-nails">
+          <img
+            src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600"
+            class="active"
+            onclick="changeImage(this)"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=600"
+            onclick="changeImage(this)"
+          />
+        </div>
+      </div>
+
+      <!-- BÊN PHẢI: THÔNG SỐ CHI TIẾT -->
+      <div>
+        <p class="info-series">Series: Neon Genesis Cyberpunk</p>
+        <h1 class="info-title">Cyber Ninja 2077 Version</h1>
+        <p class="info-price">3,200,000 đ</p>
+
+        <table class="spec-table">
+          <tr>
+            <td>Hãng sản xuất</td>
+            <td>Good Smile Company</td>
+          </tr>
+          <tr>
+            <td>Tỷ lệ / Kích thước</td>
+            <td>1/7 Scale - Cao khoảng 250mm</td>
+          </tr>
+          <tr>
+            <td>Chất liệu</td>
+            <td>PVC, ABS cao cấp đúc nguyên khối</td>
+          </tr>
+          <tr>
+            <td>Phụ kiện đi kèm</td>
+            <td>Đế đứng hiệu ứng LED giả, 2 thanh Katana năng lượng</td>
+          </tr>
+        </table>
+
+        <button class="cta-btn">Đặt Hàng Trước (Pre-Order)</button>
+      </div>
+    </main>
+
+    <footer>
+      <p>
+        &copy; 2026 <span>CRIMSON.GSC</span>. Assignment Thiết kế Web giới thiệu
+        Mô hình.
+      </p>
+    </footer>
+
+    <script>
+      function changeImage(element) {
+        document.getElementById("mainDisplayImage").src = element.src;
+        document
+          .querySelectorAll(".thumb-nails img")
+          .forEach((img) => img.classList.remove("active"));
+        element.classList.add("active");
+      }
+    </script>
+  </body>
+</html>

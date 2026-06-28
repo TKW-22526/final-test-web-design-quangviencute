@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Liên Hệ - Crimson GSC</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      .contact-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        margin-top: 120px;
+      }
+      .contact-info h1 {
+        font-size: 32px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+      .contact-info p {
+        color: var(--text-muted);
+        margin-bottom: 15px;
+        font-size: 14px;
+      }
+      .contact-form {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        padding: 30px;
+        border-radius: 8px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        background: #0d0d0f;
+        border: 1px solid var(--border-color);
+        padding: 12px;
+        color: #fff;
+        border-radius: 4px;
+        outline: none;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus {
+        border-color: var(--primary-color);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo-container">
+          <img src="../assets/logo.jpg" alt="Logo" class="logo-img" />
+          <div class="logo-text">
+            <a href="../index.html">CRIMSON<span>.GSC</span></a>
+          </div>
+        </div>
+        <ul class="nav-links">
+          <li><a href="../index.html">Trang Chủ</a></li>
+          <li><a href="danh-muc.html">Danh Mục</a></li>
+          <li><a href="san-pham.html">Sản Phẩm</a></li>
+          <li><a href="gioi-thieu.html">Giới Thiệu</a></li>
+          <li><a href="lien-he.html" class="active">Liên Hệ</a></li>
+        </ul>
+        <div class="search-box"><input type="text" placeholder="Tìm..." /></div>
+      </nav>
+    </header>
+
+    <main class="main-container contact-layout">
+      <!-- BÊN TRÁI: THÔNG TIN LIÊN HỆ -->
+      <div class="contact-info">
+        <h1>Kết Nối Với Chúng Tôi</h1>
+        <p>
+          Bạn có bất kỳ câu hỏi hoặc yêu cầu tìm kiếm mẫu mô hình giới hạn độc
+          quyền nào? Hãy để lại thông tin hoặc ghé thăm trực tiếp không gian
+          trưng bày của chúng tôi.
+        </p>
+        <p>
+          <strong>Địa chỉ:</strong> Số 123 Đường Điện Biên Phủ, Quận 1, TP. Hồ
+          Chí Minh
+        </p>
+        <p><strong>Hotline tư vấn:</strong> 1900 6789 (08:00 - 21:00)</p>
+        <p><strong>Email giải đáp:</strong> support@crimsongsc.vn</p>
+      </div>
+
+      <!-- BÊN PHẢI: FORM LIÊN HỆ -->
+      <form
+        class="contact-form"
+        onsubmit="
+          alert('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất.');
+          return false;
+        "
+      >
+        <div class="form-group">
+          <label>Họ và tên</label>
+          <input type="text" required placeholder="Nguyễn Văn A" />
+        </div>
+        <div class="form-group">
+          <label>Địa chỉ Email</label>
+          <input type="email" required placeholder="name@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Lời nhắn của bạn</label>
+          <textarea
+            rows="5"
+            required
+            placeholder="Tôi muốn hỏi về lịch pre-order sản phẩm..."
+          ></textarea>
+        </div>
+        <button type="submit" class="cta-btn" style="width: 100%">
+          Gửi Thư Liên Hệ
+        </button>
+      </form>
+    </main>
+
+    <footer>
+      <p>
+        &copy; 2026 <span>CRIMSON.GSC</span>. Assignment Thiết kế Web giới thiệu
+        Mô hình.
+      </p>
+    </footer>
+  </body>
+</html>

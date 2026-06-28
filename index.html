@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSC Crimson - Trang Chủ Mô Hình</title>
+    <!-- Nhúng font chữ Google -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ĐƯỜNG DẪN KẾT NỐI FILE CSS THEO CẤU TRÚC THƯ MỤC CỦA BẠN -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- NAV BAR -->
+    <header>
+      <nav class="navbar">
+        <div class="logo-container">
+          <!-- Sử dụng logo.jpg từ thư mục assets -->
+          <img src="assets/logo.jpg" alt="Logo" class="logo-img" />
+          <div class="logo-text">
+            <a href="index.html">SHK<span>.SHOP</span></a>
+          </div>
+        </div>
+
+        <!-- ĐƯỜNG DẪN ĐẾN CÁC FILE TRANG CON TRONG THƯ MỤC HTML/ -->
+        <ul class="nav-links">
+          <li><a href="index.html" class="active">Trang Chủ</a></li>
+          <li><a href="html/danh-muc.html">Danh Mục</a></li>
+          <li><a href="html/san-pham.html">Sản Phẩm</a></li>
+          <li><a href="html/gioi-thieu.html">Giới Thiệu</a></li>
+          <li><a href="html/lien-he.html">Liên Hệ</a></li>
+        </ul>
+
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Tìm mô hình..." />
+        </div>
+      </nav>
+    </header>
+
+    <!-- HERO BANNER -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-tag">Pre-Order Now</span>
+        <h1>Tuyệt Tác Mô Hình Sắc Nét Đến Từng Chi Tiết</h1>
+        <p>
+          Khám phá không gian trưng bày các dòng mô hình chính hãng với thiết kế
+          góc cạnh đỉnh cao, mang đậm tính nghệ thuật cơ khí và tương lai.
+        </p>
+        <button
+          class="cta-btn"
+          onclick="window.location.href = 'html/san-pham.html'"
+        >
+          Khám Phá Ngay
+        </button>
+      </div>
+    </section>
+
+    <!-- DANH SÁCH MÔ HÌNH TIÊU ĐIỂM -->
+    <main class="main-container">
+      <div class="section-header">
+        <h2>Mô Hình Tiêu Điểm</h2>
+        <div class="filter-tabs">
+          <button
+            class="filter-btn active"
+            onclick="filterCategory('all', event)"
+          >
+            Tất cả
+          </button>
+          <button class="filter-btn" onclick="filterCategory('scale', event)">
+            Scale
+          </button>
+          <button class="filter-btn" onclick="filterCategory('nendo', event)">
+            Nendoroid
+          </button>
+        </div>
+      </div>
+
+      <!-- LƯỚI SẢN PHẨM RỖNG - JAVASCRIPT SẼ TỰ ĐỘNG SINH CODE VÀO ĐÂY -->
+      <div class="products-grid" id="productGrid"></div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>
+        &copy; 2026 <span>CRIMSON.GSC</span>. Assignment Thiết kế Web giới thiệu
+        Mô hình.
+      </p>
+    </footer>
+
+    <!-- ĐƯỜNG DẪN KẾT NỐI FILE SCRIPT JS -->
+    <script src="js/script.js"></script>
+    <script>
+      // 1. Tự động đổ dữ liệu từ mảng products vào giao diện khi vừa tải trang
+      // Tham số thứ hai là `false` vì file index.html đang nằm ngoài thư mục gốc
+      loadAllProducts(products, false);
+
+      // 2. Kích hoạt bộ lắng nghe sự kiện tìm kiếm cho ô nhập liệu #searchInput
+      searchProducts(false);
+    </script>
+  </body>
+</html>

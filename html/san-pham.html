@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sản Phẩm - SHK SHOP</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      .product-page-layout {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 30px;
+        margin-top: 100px;
+      }
+      .sidebar-filter {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        padding: 20px;
+        border-radius: 8px;
+        height: fit-content;
+      }
+      .filter-group {
+        margin-bottom: 25px;
+      }
+      .filter-group h3 {
+        font-size: 14px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        color: var(--primary-color);
+        letter-spacing: 1px;
+      }
+      .filter-options label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 13px;
+        color: var(--text-muted);
+        cursor: pointer;
+      }
+      .filter-options input[type="checkbox"],
+      .filter-options input[type="radio"] {
+        margin-right: 8px;
+        accent-color: var(--primary-color);
+      }
+      .range-slider {
+        width: 100%;
+        accent-color: var(--primary-color);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo-container">
+          <img src="../assets/logo.jpg" alt="Logo" class="logo-img" />
+          <div class="logo-text">
+            <a href="../index.html">SHK<span>.SHOP</span></a>
+          </div>
+        </div>
+        <ul class="nav-links">
+          <li><a href="../index.html">Trang Chủ</a></li>
+          <li><a href="danh-muc.html">Danh Mục</a></li>
+          <li><a href="san-pham.html" class="active">Sản Phẩm</a></li>
+          <li><a href="gioi-thieu.html">Giới Thiệu</a></li>
+          <li><a href="lien-he.html">Liên Hệ</a></li>
+        </ul>
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Tìm mô hình..." />
+        </div>
+      </nav>
+    </header>
+
+    <div class="main-container product-page-layout">
+      <!-- BỘ LỌC BÊN TRÁI -->
+      <aside class="sidebar-filter">
+        <div class="filter-group">
+          <h3>Dòng Mô Hình</h3>
+          <div class="filter-options">
+            <label
+              ><input type="checkbox" name="type" value="scale" checked /> Scale
+              Figure</label
+            >
+            <label
+              ><input type="checkbox" name="type" value="nendo" checked />
+              Nendoroid</label
+            >
+            <label
+              ><input type="checkbox" name="type" value="mecha" /> Mecha &
+              Plamo</label
+            >
+          </div>
+        </div>
+        <div class="filter-group">
+          <h3>Trạng Thái</h3>
+          <div class="filter-options">
+            <label><input type="radio" name="status" checked /> Tất cả</label>
+            <label><input type="radio" name="status" /> Sẵn hàng</label>
+            <label
+              ><input type="radio" name="status" /> Đặt trước (Pre-order)</label
+            >
+          </div>
+        </div>
+      </aside>
+
+      <!-- LƯỚI SẢN PHẨM BÊN PHẢI -->
+      <section>
+        <div class="section-header">
+          <h2>Tất Cả Sản Phẩm</h2>
+        </div>
+
+        <!-- LƯỚI SẢN PHẨM RỖNG - JAVASCRIPT SẼ TỰ ĐỘNG SINH CODE VÀO ĐÂY -->
+        <div class="products-grid" id="productGrid"></div>
+      </section>
+    </div>
+
+    <footer>
+      <p>
+        &copy; 2026 <span>CRIMSON.GSC</span>. Assignment Thiết kế Web giới thiệu
+        Mô hình.
+      </p>
+    </footer>
+
+    <!-- ĐƯỜNG DẪN KẾT NỐI FILE SCRIPT JS -->
+    <script src="../js/script.js"></script>
+    <script>
+      // 1. Tự động đổ dữ liệu từ mảng products vào giao diện khi vừa tải trang
+      // Truyền tham số thứ hai là `true` vì file san-pham.html nằm trong thư mục html/
+      // Giúp link onclick nhảy thẳng sang 'chi-tiet.html' thay vì 'html/chi-tiet.html'
+      loadAllProducts(products, true);
+
+      // 2. Kích hoạt tính năng tìm kiếm qua ô #searchInput cho trang này
+      searchProducts(true);
+    </script>
+  </body>
+</html>
