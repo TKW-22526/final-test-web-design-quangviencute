@@ -79,6 +79,7 @@
         <div class="filter-group">
           <h3>Dòng Mô Hình</h3>
           <div class="filter-options">
+            <!-- Đã thêm 'checked' vào ô mecha để ban đầu trang web hiện đủ tất cả dòng máy -->
             <label
               ><input type="checkbox" name="type" value="scale" checked /> Scale
               Figure</label
@@ -88,8 +89,8 @@
               Nendoroid</label
             >
             <label
-              ><input type="checkbox" name="type" value="mecha" /> Mecha &
-              Plamo</label
+              ><input type="checkbox" name="type" value="mecha" checked /> Mecha
+              & Plamo</label
             >
           </div>
         </div>
@@ -126,13 +127,51 @@
     <!-- ĐƯỜNG DẪN KẾT NỐI FILE SCRIPT JS -->
     <script src="../js/script.js"></script>
     <script>
-      // 1. Tự động đổ dữ liệu từ mảng products vào giao diện khi vừa tải trang
-      // Truyền tham số thứ hai là `true` vì file san-pham.html nằm trong thư mục html/
-      // Giúp link onclick nhảy thẳng sang 'chi-tiet.html' thay vì 'html/chi-tiet.html'
-      loadAllProducts(products, true);
+      // =========================================================
+      // HÀM LỌC SẢN PHẨM THEO TRẠNG THÁI CHECKBOX
+      // =========================================================
+      function filterProductsByCheckbox() {
+        // 1. Gom tất cả các ô checkbox dòng mô hình đang được tích chọn
+        const checkedBoxes = document.querySelectorAll(
+          'input[name="type"]:checked',
+        );
 
-      // 2. Kích hoạt tính năng tìm kiếm qua ô #searchInput cho trang này
+        // 2. Chuyển đổi danh sách checkbox thành một mảng chứa các chữ giá trị (Ví dụ: ['scale', 'nendo'])
+        const selectedTypes = Array.from(checkedBoxes).map((cb) => cb.value);
+
+        // 3. Nếu không tích chọn bất kỳ ô nào, ẩn sạch sản phẩm và báo lỗi
+        if (selectedTypes.length === 0) {
+          document.getElementById("productGrid").innerHTML = `
+            <div style="grid-column: span 3; text-align: center; color: var(--text-muted); padding: 50px 0; font-size: 14px;">
+                Bạn đã bỏ chọn tất cả các dòng! Không có mô hình nào để hiển thị.
+            </div>`;
+          return;
+        }
+
+        // 4. Lọc mảng dữ liệu gốc `products`, giữ lại sản phẩm nào có 'type' nằm trong danh sách đã tích
+        const filteredResult = products.filter((item) =>
+          selectedTypes.includes(item.type),
+        );
+
+        // 5. Đổ lại danh sách đã lọc ra lưới sản phẩm
+        loadAllProducts(filteredResult, true);
+      }
+
+      // =========================================================
+      // KÍCH HOẠT VÀ GẮN BỘ LẮNG NGHE SỰ KIỆN
+      // =========================================================
+
+      // Chạy hàm lọc ngay khi vừa tải trang để đồng bộ với trạng thái các ô tích đầu tiên
+      filterProductsByCheckbox();
+
+      // Kích hoạt tính năng tìm kiếm qua ô #searchInput cho trang này
       searchProducts(true);
+
+      // Gắn sự kiện 'change' (thay đổi) cho toàn bộ checkbox dòng mô hình
+      // Cứ mỗi lần click chọn/bỏ chọn là hàm lọc tự động chạy và ẩn/hiện sản phẩm ngay lập tức
+      document.querySelectorAll('input[name="type"]').forEach((checkbox) => {
+        checkbox.addEventListener("change", filterProductsByCheckbox);
+      });
     </script>
   </body>
 </html>

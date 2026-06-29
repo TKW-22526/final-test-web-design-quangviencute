@@ -120,6 +120,20 @@ const products = [
     details:
       "<b>Kích thước:</b> ~10cm<br><b>Chất liệu:</b> PVC cao cấp<br><b>Hãng:</b> Good Smile Company<br><b>Phụ kiện:</b> Trượng phép, hiệu ứng ma pháp vòng tròn",
   },
+  {
+    id: "10",
+    name: "Nendoroid Iron Man Mark 85: Endgame Ver.",
+    series: "Marvel Cinematic Universe",
+    price: "1,650,000 đ",
+    scale: "Chibi Size",
+    badge: "Bán chạy",
+    type: "nendo",
+    image: "https://picsum.photos/600/600?random=1", // Bạn thay đường dẫn ảnh của bạn vào đây nhé
+    description:
+      "Mô hình siêu anh hùng Iron Man trong bộ giáp Mark 85 tối tân dưới dạng chibi cực kỳ cool ngầu và chi tiết.",
+    details:
+      "<b>Kích thước:</b> ~10cm<br><b>Chất liệu:</b> PVC & ABS cao cấp<br><b>Hãng:</b> Good Smile Company<br><b>Phụ kiện:</b> Đầu thay thế Tony Stark, Găng tay vô cực, Hiệu ứng tia Repulsor, Khiên Nano",
+  },
 ];
 
 // 2. HÀM TẠO CARD MÔ HÌNH DÂN CHƠI

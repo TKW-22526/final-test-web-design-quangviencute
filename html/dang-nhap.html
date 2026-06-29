@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng Nhập - Crimson GSC</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      .auth-container {
+        max-width: 400px;
+        margin: 140px auto 50px auto;
+        background: var(--card-bg, #141414);
+        border: 1px solid var(--border-color, #2a2a2a);
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
+      .auth-container h2 {
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+      }
+      .auth-container h2 span {
+        color: var(--primary-color, #ff4d4d);
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 13px;
+        color: var(--text-muted, #aaa);
+        margin-bottom: 8px;
+      }
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        background: #0a0a0a;
+        border: 1px solid var(--border-color, #2a2a2a);
+        border-radius: 4px;
+        color: #fff;
+        font-family: "Montserrat", sans-serif;
+        font-size: 14px;
+        outline: none;
+        transition: 0.3s;
+      }
+      .form-group input:focus {
+        border-color: var(--primary-color, #ff4d4d);
+      }
+      .auth-btn {
+        width: 100%;
+        padding: 14px;
+        background: var(--primary-color, #ff4d4d);
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        text-transform: uppercase;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+      }
+      .auth-btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      /* STYLE RIÊNG CHO NÚT QUAY LẠI SHOP */
+      .back-btn {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        background: transparent;
+        border: 1px solid var(--border-color, #2a2a2a);
+        color: var(--text-muted, #aaa);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 13px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-top: 15px;
+        transition: 0.3s;
+      }
+      .back-btn:hover {
+        border-color: var(--primary-color, #ff4d4d);
+        color: #fff;
+        transform: translateY(-2px);
+      }
+
+      .auth-redirect {
+        text-align: center;
+        margin-top: 25px;
+        font-size: 13px;
+        color: var(--text-muted, #aaa);
+      }
+      .auth-redirect a {
+        color: var(--primary-color, #ff4d4d);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .auth-redirect a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="auth-container">
+      <h2>Đăng <span>Nhập</span></h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label>Tên đăng nhập</label>
+          <input
+            type="text"
+            id="loginUser"
+            placeholder="Nhập tài khoản..."
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Mật khẩu</label>
+          <input
+            type="password"
+            id="loginPass"
+            placeholder="Nhập mật khẩu..."
+            required
+          />
+        </div>
+        <button type="submit" class="auth-btn">Vào Hệ Thống</button>
+      </form>
+
+      <!-- NÚT QUAY LẠI SHOP ĐƯỢC THÊM VÀO ĐÂY -->
+      <a href="../index.html" class="back-btn">← Quay Lại Shop</a>
+
+      <div class="auth-redirect">
+        Chưa có tài khoản? <a href="dang-ky.html">Đăng ký tại đây</a>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const user = document.getElementById("loginUser").value.trim();
+          const pass = document.getElementById("loginPass").value;
+          const savedPassword = localStorage.getItem("user_" + user);
+
+          if (savedPassword && savedPassword === pass) {
+            alert("Đăng nhập thành công! Chào mừng quay trở lại shop.");
+            localStorage.setItem("currentUser", user);
+            window.location.href = "../index.html";
+          } else {
+            alert("Sai tên đăng nhập hoặc mật khẩu! Vui lòng kiểm tra lại.");
+          }
+        });
+    </script>
+  </body>
+</html>

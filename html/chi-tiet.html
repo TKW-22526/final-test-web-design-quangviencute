@@ -60,23 +60,32 @@
       .info-price {
         font-size: 28px;
         font-weight: 800;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         color: var(--text-light);
       }
-
-      .spec-table {
-        width: 100%;
-        border-collapse: collapse;
+      .info-description {
+        color: var(--text-muted);
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 30px;
+        text-align: justify;
+      }
+      .spec-box {
+        border-top: 1px solid var(--border-color);
+        padding-top: 20px;
         margin-bottom: 30px;
       }
-      .spec-table td {
-        padding: 12px;
-        border-bottom: 1px solid var(--border-color);
-        font-size: 14px;
+      .spec-box h5 {
+        color: var(--primary-color);
+        font-size: 15px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        letter-spacing: 1px;
       }
-      .spec-table td:first-child {
-        color: var(--text-muted);
-        width: 150px;
+      .spec-content {
+        font-size: 14px;
+        line-height: 1.8;
+        color: var(--text-light);
       }
     </style>
   </head>
@@ -102,51 +111,31 @@
       </nav>
     </header>
 
-    <main class="main-container detail-container">
-      <!-- BÊN TRÁI: HÌNH ẢNH MÔ HÌNH -->
+    <!-- Khung chính chứa toàn bộ thông tin chi tiết -->
+    <main class="main-container detail-container" id="main-container">
+      <!-- BÊN TRÁI: HÌNH ẢNH MÔ HÌNH DỰA THEO ID -->
       <div class="gallery-container">
-        <img
-          src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600"
-          id="mainDisplayImage"
-          class="main-img"
-        />
+        <img src="" id="mainDisplayImage" class="main-img" />
         <div class="thumb-nails">
-          <img
-            src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600"
-            class="active"
-            onclick="changeImage(this)"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=600"
-            onclick="changeImage(this)"
-          />
+          <img src="" id="thumb1" class="active" onclick="changeImage(this)" />
+          <img src="" id="thumb2" onclick="changeImage(this)" />
         </div>
       </div>
 
-      <!-- BÊN PHẢI: THÔNG SỐ CHI TIẾT -->
+      <!-- BÊN PHẢI: CHỮ NGHĨA TỰ ĐỘNG THAY ĐỔI THEO ID -->
       <div>
-        <p class="info-series">Series: Neon Genesis Cyberpunk</p>
-        <h1 class="info-title">Cyber Ninja 2077 Version</h1>
-        <p class="info-price">3,200,000 đ</p>
+        <p class="info-series" id="series">Series:</p>
+        <h1 class="info-title" id="name"></h1>
+        <p class="info-price" id="price"></p>
 
-        <table class="spec-table">
-          <tr>
-            <td>Hãng sản xuất</td>
-            <td>Good Smile Company</td>
-          </tr>
-          <tr>
-            <td>Tỷ lệ / Kích thước</td>
-            <td>1/7 Scale - Cao khoảng 250mm</td>
-          </tr>
-          <tr>
-            <td>Chất liệu</td>
-            <td>PVC, ABS cao cấp đúc nguyên khối</td>
-          </tr>
-          <tr>
-            <td>Phụ kiện đi kèm</td>
-            <td>Đế đứng hiệu ứng LED giả, 2 thanh Katana năng lượng</td>
-          </tr>
-        </table>
+        <!-- Đoạn mô tả sản phẩm lấy từ file JS -->
+        <p class="info-description" id="description"></p>
+
+        <!-- Khung thông số kỹ thuật tự động nhận diện thẻ <b> và <br> -->
+        <div class="spec-box">
+          <h5>Thông số kỹ thuật:</h5>
+          <div id="details" class="spec-content"></div>
+        </div>
 
         <button class="cta-btn">Đặt Hàng Trước (Pre-Order)</button>
       </div>
@@ -159,7 +148,56 @@
       </p>
     </footer>
 
+    <!-- ĐƯỜNG DẪN KẾT NỐI FILE CHỨA MẢNG SẢN PHẨM (Bảo đảm đúng tên file js của bạn) -->
+    <script src="../js/script.js"></script>
+
     <script>
+      // 1. Đọc mã ID từ thanh địa chỉ URL (?id=10)
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get("id");
+
+      // 2. Tìm sản phẩm trong mảng bằng cách ép kiểu String để tránh lỗi Số vs Chữ
+      const foundProduct = products.find(
+        (obj) => String(obj.id) === String(productId),
+      );
+
+      // 3. Nếu tìm thấy sản phẩm, tiến hành thay thế ruột HTML bằng dữ liệu động
+      if (foundProduct) {
+        document.getElementById("name").innerText = foundProduct.name;
+        document.getElementById("price").innerText = foundProduct.price;
+        document.getElementById("series").innerText =
+          "Series: " + (foundProduct.series || "Đang cập nhật");
+        document.getElementById("description").innerText =
+          foundProduct.description ||
+          "Chưa có mô tả chi tiết cho sản phẩm này.";
+
+        // Cập nhật đường dẫn ảnh cho ảnh chính và cả các thumbnail
+        document.getElementById("mainDisplayImage").src = foundProduct.image;
+        document.getElementById("mainDisplayImage").alt = foundProduct.name;
+        document.getElementById("thumb1").src = foundProduct.image;
+        document.getElementById("thumb2").src = foundProduct.image;
+
+        // Đổ dữ liệu chi tiết, cho phép đọc thẻ <b> và <br>
+        if (foundProduct.details) {
+          document.getElementById("details").innerHTML = foundProduct.details;
+        } else {
+          document.getElementById("details").innerText =
+            "Đang cập nhật thông số...";
+        }
+
+        // Đổi luôn tiêu đề trên tab trình duyệt cho chuyên nghiệp
+        document.title = foundProduct.name + " - Crimson GSC";
+      } else {
+        // Nếu bấm bậy bạ ra ID không tồn tại, hiện thông báo lỗi ngay tại khung chính
+        document.getElementById("main-container").innerHTML = `
+              <div style="grid-column: span 2; text-align: center; padding: 100px 20px; color: var(--primary-color);">
+                  <h2 style="font-weight: 800; font-size: 28px;">SẢN PHẨM KHÔNG TỒN TẠI HOẶC ĐÃ BỊ XÓA!</h2>
+                  <p style="color: var(--text-muted); margin: 20px 0 30px 0;">Vui lòng quay lại danh sách để chọn mô hình khác.</p>
+                  <a href="san-pham.html" class="cta-btn" style="text-decoration: none; display: inline-block;">Quay lại trang sản phẩm</a>
+              </div>`;
+      }
+
+      // Hàm xử lý khi người dùng click vào ảnh nhỏ thumbnail
       function changeImage(element) {
         document.getElementById("mainDisplayImage").src = element.src;
         document

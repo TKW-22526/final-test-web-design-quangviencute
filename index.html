@@ -31,6 +31,7 @@
           <li><a href="html/san-pham.html">Sản Phẩm</a></li>
           <li><a href="html/gioi-thieu.html">Giới Thiệu</a></li>
           <li><a href="html/lien-he.html">Liên Hệ</a></li>
+          <li><a href="html/dang-nhap.html" id="navAuth">Đăng Nhập</a></li>
         </ul>
 
         <div class="search-box">
@@ -98,6 +99,19 @@
 
       // 2. Kích hoạt bộ lắng nghe sự kiện tìm kiếm cho ô nhập liệu #searchInput
       searchProducts(false);
+    </script>
+    <script>
+      // Kiểm tra nếu có người dùng đã đăng nhập thành công
+      const currentUser = localStorage.getItem("currentUser");
+      if (currentUser) {
+        const navAuth = document.getElementById("navAuth");
+        navAuth.innerText = `Hi, ${currentUser} (Thoát)`;
+        navAuth.href = "#";
+        navAuth.onclick = function () {
+          localStorage.removeItem("currentUser"); // Đăng xuất
+          window.location.reload();
+        };
+      }
     </script>
   </body>
 </html>

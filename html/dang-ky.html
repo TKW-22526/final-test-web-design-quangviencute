@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng Ký Tài Khoản - Crimson GSC</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      .auth-container {
+        max-width: 400px;
+        margin: 120px auto 50px auto;
+        background: var(--card-bg, #141414);
+        border: 1px solid var(--border-color, #2a2a2a);
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
+      .auth-container h2 {
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+      }
+      .auth-container h2 span {
+        color: var(--primary-color, #ff4d4d);
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 13px;
+        color: var(--text-muted, #aaa);
+        margin-bottom: 8px;
+      }
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        background: #0a0a0a;
+        border: 1px solid var(--border-color, #2a2a2a);
+        border-radius: 4px;
+        color: #fff;
+        font-family: "Montserrat", sans-serif;
+        font-size: 14px;
+        outline: none;
+        transition: 0.3s;
+      }
+      .form-group input:focus {
+        border-color: var(--primary-color, #ff4d4d);
+      }
+      .auth-btn {
+        width: 100%;
+        padding: 14px;
+        background: var(--primary-color, #ff4d4d);
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        text-transform: uppercase;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+      }
+      .auth-btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+      .auth-redirect {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 13px;
+        color: var(--text-muted, #aaa);
+      }
+      .auth-redirect a {
+        color: var(--primary-color, #ff4d4d);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .auth-redirect a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="auth-container">
+      <h2>Đăng <span>Ký</span></h2>
+      <form id="registerForm">
+        <div class="form-group">
+          <label>Tên đăng nhập</label>
+          <input
+            type="text"
+            id="regUser"
+            placeholder="Nhập tên tài khoản..."
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Mật khẩu</label>
+          <input
+            type="password"
+            id="regPass"
+            placeholder="Nhập mật khẩu..."
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Xác nhận mật khẩu</label>
+          <input
+            type="password"
+            id="regConfirmPass"
+            placeholder="Nhập lại mật khẩu..."
+            required
+          />
+        </div>
+        <button type="submit" class="auth-btn">Tạo Tài Khoản</button>
+      </form>
+      <div class="auth-redirect">
+        Đã có tài khoản? <a href="dang-nhap.html">Đăng nhập ngay</a>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // Chặn reload trang
+
+          const user = document.getElementById("regUser").value.trim();
+          const pass = document.getElementById("regPass").value;
+          const confirmPass = document.getElementById("regConfirmPass").value;
+
+          if (pass !== confirmPass) {
+            alert("Mật khẩu nhập lại không trùng khớp!");
+            return;
+          }
+
+          // Kiểm tra xem tên tài khoản đã tồn tại chưa
+          if (localStorage.getItem("user_" + user)) {
+            alert("Tên đăng nhập này đã có người sử dụng!");
+            return;
+          }
+
+          // Lưu tài khoản vào localStorage
+          localStorage.setItem("user_" + user, pass);
+          alert(
+            "Đăng ký thành công! Hệ thống sẽ chuyển bạn sang trang Đăng nhập.",
+          );
+
+          // ĐÁ CHẠY QUA TRANG ĐĂNG NHẬP THEO YÊU CẦU CỦA BẠN
+          window.location.href = "dang-nhap.html";
+        });
+    </script>
+  </body>
+</html>
