@@ -10,7 +10,29 @@
     />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/chi-tiet.css" />
-    <style></style>
+    <style>
+      /* CSS CHO NÚT THÊM VÀO GIỎ TRANG CHI TIẾT */
+      .add-to-cart-detail-btn {
+        background: transparent;
+        color: #ff4d4d;
+        border: 2px solid #ff4d4d;
+        padding: 12px 25px;
+        font-weight: 800;
+        font-size: 14px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap; /* Giữ chữ thẳng hàng không bị gãy xuống dòng */
+      }
+
+      /* Hiệu ứng lung linh khi rê chuột vào */
+      .add-to-cart-detail-btn:hover {
+        background: #ff4d4d;
+        color: white;
+        box-shadow: 0 0 15px rgba(255, 77, 77, 0.5);
+        transform: translateY(-2px);
+      }
+    </style>
   </head>
   <body>
     <header>
@@ -27,6 +49,28 @@
           <li><a href="san-pham.html" class="active">Sản Phẩm</a></li>
           <li><a href="gioi-thieu.html">Giới Thiệu</a></li>
           <li><a href="lien-he.html">Liên Hệ</a></li>
+          <li>
+            <a href="gio-hang.html" id="navCart">
+              GIỎ HÀNG
+              <span
+                id="cartCount"
+                style="
+                  background: #ff4d4d;
+                  color: #ffffff;
+                  padding: 2px 7px;
+                  border-radius: 50%;
+                  font-size: 11px;
+                  font-weight: 800;
+                  margin-left: 3px;
+                  display: inline-block;
+                  line-height: 12px;
+                  text-align: center;
+                  vertical-align: middle;
+                "
+                >0</span
+              >
+            </a>
+          </li>
           <li><a href="dang-nhap.html" id="navAuth">Đăng Nhập</a></li>
         </ul>
         <div class="search-box">
@@ -35,9 +79,7 @@
       </nav>
     </header>
 
-    <!-- Khung chính chứa toàn bộ thông tin chi tiết -->
     <main class="main-container detail-container" id="main-container">
-      <!-- BÊN TRÁI: HÌNH ẢNH MÔ HÌNH DỰA THEO ID -->
       <div class="gallery-container">
         <img src="" id="mainDisplayImage" class="main-img" />
         <div class="thumb-nails">
@@ -46,22 +88,34 @@
         </div>
       </div>
 
-      <!-- BÊN PHẢI: CHỮ NGHĨA TỰ ĐỘNG THAY ĐỔI THEO ID -->
       <div>
         <p class="info-series" id="series">Series:</p>
         <h1 class="info-title" id="name"></h1>
         <p class="info-price" id="price"></p>
 
-        <!-- Đoạn mô tả sản phẩm lấy từ file JS -->
         <p class="info-description" id="description"></p>
 
-        <!-- Khung thông số kỹ thuật tự động nhận diện thẻ <b> và <br> -->
         <div class="spec-box">
           <h5>Thông số kỹ thuật:</h5>
           <div id="details" class="spec-content"></div>
         </div>
 
-        <button class="cta-btn">Đặt Hàng Trước (Pre-Order)</button>
+        <div
+          style="
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            align-items: center;
+          "
+        >
+          <button id="preOrderBtn" class="cta-btn" style="flex: 1; margin: 0">
+            Đặt Hàng Trước (Pre-Order)
+          </button>
+
+          <button id="addToCartBtn" class="add-to-cart-detail-btn">
+            🛒 THÊM VÀO GIỎ
+          </button>
+        </div>
       </div>
     </main>
 
@@ -72,7 +126,6 @@
       </p>
     </footer>
 
-    <!-- ĐƯỜNG DẪN KẾT NỐI FILE CHỨA MẢNG SẢN PHẨM (Bảo đảm đúng tên file js của bạn) -->
     <script src="../js/script.js"></script>
 
     <script>
@@ -109,6 +162,20 @@
             "Đang cập nhật thông số...";
         }
 
+        // KÍCH HOẠT HÀM CLICK CHO NÚT GIỎ HÀNG VỪA THÊM
+        document.getElementById("addToCartBtn").onclick = function () {
+          addToCart(foundProduct.id);
+        };
+
+        // ĐÃ SỬA: BẤM PRE-ORDER CHỈ HIỆN THÔNG BÁO THÀNH CÔNG, KHÔNG CHO VÀO GIỎ HÀNG
+        document.getElementById("preOrderBtn").onclick = function () {
+          alert(
+            "🎉 Đặt hàng trước thành công mô hình: " +
+              foundProduct.name +
+              "!\nShop sẽ liên hệ bồ để xác nhận lịch về hàng sớm nhất nhé!",
+          );
+        };
+
         // Đổi luôn tiêu đề trên tab trình duyệt cho chuyên nghiệp
         document.title = foundProduct.name + " - Crimson GSC";
       } else {
@@ -130,6 +197,5 @@
         element.classList.add("active");
       }
     </script>
-    <script src="../js/script.js"></script>
   </body>
 </html>

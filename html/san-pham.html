@@ -27,6 +27,24 @@
           <li><a href="san-pham.html" class="active">Sản Phẩm</a></li>
           <li><a href="gioi-thieu.html">Giới Thiệu</a></li>
           <li><a href="lien-he.html">Liên Hệ</a></li>
+          <li>
+            <a href="gio-hang.html" id="navCart">
+              GIỎ HÀNG
+              <span
+                id="cartCount"
+                style="
+                  background: #ff4d4d;
+                  color: white;
+                  padding: 2px 7px;
+                  border-radius: 50%;
+                  font-size: 11px;
+                  font-weight: 800;
+                  margin-left: 3px;
+                "
+                >0</span
+              >
+            </a>
+          </li>
           <li><a href="dang-nhap.html" id="navAuth">Đăng Nhập</a></li>
         </ul>
         <div class="search-box">
@@ -36,12 +54,10 @@
     </header>
 
     <div class="main-container product-page-layout">
-      <!-- BỘ LỌC BÊN TRÁI -->
       <aside class="sidebar-filter">
         <div class="filter-group">
           <h3>Dòng Mô Hình</h3>
           <div class="filter-options">
-            <!-- Đã đổi value chuẩn có dấu gạch để khớp 100% với link bên danh mục -->
             <label
               ><input type="checkbox" name="type" value="strangerthing" />
               STRANGER THINGS</label
@@ -92,13 +108,11 @@
         </div>
       </aside>
 
-      <!-- LƯỚI SẢN PHẨM BÊN PHẢI -->
       <section>
         <div class="section-header">
           <h2>Tất Cả Sản Phẩm</h2>
         </div>
 
-        <!-- LƯỚI SẢN PHẨM RỖNG - JAVASCRIPT SẼ TỰ ĐỘNG SINH CODE VÀO ĐÂY -->
         <div class="products-grid" id="productGrid"></div>
       </section>
     </div>
@@ -110,7 +124,6 @@
       </p>
     </footer>
 
-    <!-- ĐƯỜNG DẪN KẾT NỐI FILE SCRIPT JS -->
     <script src="../js/script.js"></script>
     <script>
       // =========================================================
@@ -147,10 +160,10 @@
       // ĐOẠN CODE ĐỌC TÍN HIỆU TỪ URL TRANG DANH MỤC TRUYỀN SANG
       // =========================================================
       const urlParams = new URLSearchParams(window.location.search);
-      const typeFromUrl = urlParams.get("type"); // Nhận diện các chữ 'marvel', 'naruto', 'stranger-things', 'one-piece'
+      const typeFromUrl = urlParams.get("type");
 
       if (typeFromUrl) {
-        // Nếu chuyển từ trang danh mục qua -> tắt hết tất cả các ô tick
+        // Nếu chuyển từ trang danh mục qua -> tắt hết tất cả các ô tick trước
         document
           .querySelectorAll('input[name="type"]')
           .forEach((cb) => (cb.checked = false));
