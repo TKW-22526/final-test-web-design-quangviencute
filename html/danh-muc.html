@@ -3,125 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Danh Mục Mô Hình - Crimson GSC</title>
+    <title>Danh Mục Mô Hình - SHK SHOP</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/style.css" />
-    <style>
-      .category-page-title {
-        text-align: center;
-        margin-top: 120px;
-        margin-bottom: 50px;
-      }
-      .category-page-title h1 {
-        font-size: 36px;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        font-weight: 800;
-      }
-      .category-page-title p {
-        color: var(--text-muted);
-        margin-top: 10px;
-        font-size: 14px;
-      }
-
-      /* Lưới danh mục lớn */
-      .category-large-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin-bottom: 80px;
-      }
-
-      .category-main-card {
-        position: relative;
-        height: 400px;
-        border-radius: 8px;
-        overflow: hidden;
-        border: 1px solid var(--border-color);
-        cursor: pointer;
-        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      }
-
-      .category-main-card .bg-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.6s ease;
-      }
-
-      /* Lớp phủ làm tối ảnh nền */
-      .category-main-card .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          to top,
-          rgba(13, 13, 15, 0.95) 20%,
-          rgba(13, 13, 15, 0.2) 100%
-        );
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding: 30px;
-        z-index: 2;
-      }
-
-      .category-main-card h2 {
-        font-size: 24px;
-        font-weight: 800;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-        letter-spacing: 1px;
-        transition: color 0.3s ease;
-      }
-
-      .category-main-card p {
-        color: var(--text-muted);
-        font-size: 13px;
-        line-height: 1.5;
-        transform: translateY(10px);
-        opacity: 0;
-        transition: all 0.4s ease;
-      }
-
-      /* Hiệu ứng Hover siêu ngầu */
-      .category-main-card:hover {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 25px var(--primary-glow);
-      }
-
-      .category-main-card:hover .bg-img {
-        transform: scale(1.08);
-      }
-
-      .category-main-card:hover h2 {
-        color: var(--primary-color);
-        text-shadow: 0 0 10px var(--primary-glow);
-      }
-
-      .category-main-card:hover p {
-        transform: translateY(0);
-        opacity: 1;
-      }
-
-      .category-count {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background: rgba(225, 225, 225, 0.1);
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 11px;
-        font-weight: 600;
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      }
-    </style>
+    <link rel="stylesheet" href="../css/danh-muc.css" />
+    <style></style>
   </head>
   <body>
     <!-- NAVBAR -->
@@ -130,7 +19,7 @@
         <div class="logo-container">
           <img src="../assets/logo.jpg" alt="Logo" class="logo-img" />
           <div class="logo-text">
-            <a href="../index.html">CRIMSON<span>.GSC</span></a>
+            <a href="../index.html">SHK<span>.SHOP</span></a>
           </div>
         </div>
         <ul class="nav-links">
@@ -139,6 +28,7 @@
           <li><a href="san-pham.html">Sản Phẩm</a></li>
           <li><a href="gioi-thieu.html">Giới Thiệu</a></li>
           <li><a href="lien-he.html">Liên Hệ</a></li>
+          <li><a href="dang-nhap.html" id="navAuth">Đăng Nhập</a></li>
         </ul>
         <div class="search-box">
           <input type="text" placeholder="Tìm kiếm..." />
@@ -146,83 +36,210 @@
       </nav>
     </header>
 
-    <!-- THÂN TRANG DANH MỤC -->
+    <!-- THÂN TRANG DANH MỤC (Đã sửa lỗi thẻ main) -->
     <main class="main-container">
       <div class="category-page-title">
         <h1>Danh Mục Hệ Thống</h1>
-        <p>Phân loại các dòng mô hình theo tiêu chuẩn sưu tầm quốc tế</p>
+        <p>Phân loại các dòng mô hình theo từng Vũ trụ và Bộ phim yêu thích</p>
       </div>
 
+      <!-- TẤT CẢ DANH MỤC ĐỀU NẰM TRONG LƯỚI NÀY -->
       <div class="category-large-grid">
-        <!-- Danh mục 1: Nendoroid -->
+        <!-- Danh mục 1: Stranger Things -->
         <div
           class="category-main-card"
-          onclick="window.location.href = 'san-pham.html'"
+          onclick="window.location.href = 'san-pham.html?type=stranger-things'"
         >
-          <span class="category-count">120+ Mẫu</span>
+          <span class="category-count">12+ Mẫu</span>
           <img
-            src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=600"
+            src="../assets/images/strangerthing.jpg"
             class="bg-img"
-            alt="Nendoroid"
+            alt="Stranger Things"
           />
           <div class="overlay">
-            <h2>Nendoroid Series</h2>
+            <h2>Stranger Things</h2>
             <p>
-              Dòng mô hình biến tấu theo phong cách Chibi đáng yêu, chiều cao
-              ~10cm với các khớp linh hoạt và vô số phụ kiện biểu cảm thay thế
-              độc đáo.
+              Khám phá thế giới Upside Down với các mô hình nhân vật Eleven,
+              Dustin, Mike và quái vật Demogorgon siêu chi tiết từ series ăn
+              khách toàn cầu.
             </p>
           </div>
         </div>
 
-        <!-- Danh mục 2: Scale Figure -->
+        <!-- Danh mục 2: Marvel Universe -->
         <div
           class="category-main-card"
-          onclick="window.location.href = 'san-pham.html'"
+          onclick="window.location.href = 'san-pham.html?type=marvel'"
         >
-          <span class="category-count">85+ Mẫu</span>
-          <img
-            src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600"
-            class="bg-img"
-            alt="Scale Figure"
-          />
+          <span class="category-count">25+ Mẫu</span>
+          <img src="../assets/images/marvel.jpg" class="bg-img" alt="Marvel" />
           <div class="overlay">
-            <h2>Scale Figure</h2>
+            <h2>Marvel Universe</h2>
             <p>
-              Mô hình tỷ lệ chuẩn xác (1/7, 1/8) mô phỏng hoàn hảo từng nếp áo,
-              làn da và thần thái gốc của nhân vật với độ tinh xảo cực kỳ cao.
+              Bộ sưu tập các siêu anh hùng huyền thoại của Marvel: Iron Man,
+              Captain America, Spider-Man... Đỉnh cao mô hình Cinematic hoành
+              tráng.
             </p>
           </div>
         </div>
 
-        <!-- Danh mục 3: Mecha & Plamo -->
+        <!-- Danh mục 3: Naruto -->
         <div
           class="category-main-card"
-          onclick="window.location.href = 'san-pham.html'"
+          onclick="window.location.href = 'san-pham.html?type=naruto'"
         >
-          <span class="category-count">50+ Mẫu</span>
+          <span class="category-count">18+ Mẫu</span>
+          <img src="../assets/images/naruto.jpg" class="bg-img" alt="Naruto" />
+          <div class="overlay">
+            <h2>Naruto Shippuden</h2>
+            <p>
+              Sống lại thế giới nhẫn giả với các mô hình chất lượng cao tái hiện
+              sắc nét các nhân vật Naruto, Sasuke, Kakashi, hay tổ chức
+              Akatsuki.
+            </p>
+          </div>
+        </div>
+
+        <!-- Danh mục 4: One Piece -->
+        <div
+          class="category-main-card"
+          onclick="window.location.href = 'san-pham.html?type=one-piece'"
+        >
+          <span class="category-count">30+ Mẫu</span>
           <img
-            src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600"
+            src="../assets/images/onepiece.jpg"
             class="bg-img"
-            alt="Mecha"
+            alt="One Piece"
           />
           <div class="overlay">
-            <h2>Mecha & Plamo</h2>
+            <h2>One Piece</h2>
             <p>
-              Thế giới robot lắp ráp hầm hố dành cho những kỹ sư mô hình. Trải
-              nghiệm cảm giác tự tay lắp ghép các khớp cơ khí chính xác.
+              Giương buồm ra khơi cùng Băng Mũ Rơm! Bộ sưu tập mô hình Luffy
+              Gear 5, Zoro, Sanji tái hiện những trận chiến kinh điển trên Đại
+              Hải Trình.
+            </p>
+          </div>
+        </div>
+
+        <!-- Danh mục 5: Pháp sư tiễn táng (Đã sửa sạch lỗi cú pháp) -->
+        <div
+          class="category-main-card"
+          onclick="window.location.href = 'san-pham.html?type=frieren'"
+        >
+          <span class="category-count">15+ Mẫu</span>
+          <img
+            src="../assets/images/frieren.jpg"
+            class="bg-img"
+            alt="Pháp sư tiễn táng"
+          />
+          <div class="overlay">
+            <h2>Frieren</h2>
+            <p>
+              Bước vào cuộc hành trình suy ngẫm về thời gian và tình bạn với bộ
+              sưu tập mô hình nàng pháp sư elf Frieren, Fern và Stark được hoàn
+              thiện tinh tế.
+            </p>
+          </div>
+        </div>
+
+        <!-- Danh mục 6: Ghibli Studio (MỚI) -->
+        <div
+          class="category-main-card"
+          onclick="window.location.href = 'san-pham.html?type=ghibli'"
+        >
+          <span class="category-count">20+ Mẫu</span>
+          <img
+            src="../assets/images/ghibli.jpg"
+            class="bg-img"
+            alt="Ghibli Studio"
+          />
+          <div class="overlay">
+            <h2>Ghibli Studio</h2>
+            <p>
+              Trở về tuổi thơ ngọt ngào với thế giới hoạt hình kỳ diệu của
+              Ghibli. Nơi hội tụ những mô hình chất lượng của Totoro, Vô Diện,
+              cùng lâu đài di động Howl.
+            </p>
+          </div>
+        </div>
+
+        <!-- Danh mục 7: Shangri-La Frontier (MỚI) -->
+        <div
+          class="category-main-card"
+          onclick="window.location.href = 'san-pham.html?type=shangrila'"
+        >
+          <span class="category-count">10+ Mẫu</span>
+          <img
+            src="../assets/images/shangrila.jpg"
+            class="bg-img"
+            alt="Shangri-La Frontier"
+          />
+          <div class="overlay">
+            <h2>Shangri-La Frontier</h2>
+            <p>
+              Đắm chìm vào thế giới game thực tế ảo đỉnh cao cùng thợ săn "game
+              rác" Sunraku, Arthur, Okaturo với các tư thế chiến đấu năng động,
+              sắc nét.
+            </p>
+          </div>
+        </div>
+        <!-- ========================================================= -->
+        <!-- DÁN ĐOẠN 2 DANH MỤC MỚI CỦA BỒ VÀO ĐÂY NÈ -->
+        <!-- ========================================================= -->
+
+        <!-- Danh mục 8: Junji Ito (MỚI) -->
+        <div
+          class="category-main-card"
+          onclick="window.location.href = 'san-pham.html?type=junji-ito'"
+        >
+          <span class="category-count">12+ Mẫu</span>
+          <img
+            src="../assets/images/junjiito.jpg"
+            class="bg-img"
+            alt="Junji Ito"
+          />
+          <div class="overlay">
+            <h2>Junji Ito Collection</h2>
+            <p>
+              Rùng mình với thế giới kinh dị dị biệt của bậc thầy mangaka Junji
+              Ito. Sở hữu ngay các mô hình đầy ma mị độc đáo của Tomie, Souichi
+              hay Uzumaki.
+            </p>
+          </div>
+        </div>
+
+        <!-- Danh mục 9: My Hero Academia (MỚI) -->
+        <div
+          class="category-main-card"
+          onclick="window.location.href = 'san-pham.html?type=mha'"
+        >
+          <span class="category-count">22+ Mẫu</span>
+          <img
+            src="../assets/images/mha.jpg"
+            class="bg-img"
+            alt="My Hero Academia"
+          />
+          <div class="overlay">
+            <h2>My Hero Academia</h2>
+            <p>
+              Đánh thức năng lực siêu anh hùng bên trong bạn! Bộ sưu tập mô hình
+              sắc nét của Deku, Bakugo, Todoroki và biểu tượng hòa bình All
+              Might.
             </p>
           </div>
         </div>
       </div>
+      <!-- Kết thúc lưới category-large-grid hợp lệ -->
     </main>
 
     <!-- FOOTER -->
     <footer>
       <p>
-        &copy; 2026 <span>CRIMSON.GSC</span>. Assignment Thiết kế Web giới thiệu
-        Mô hình.
+        &copy; 2026 <span>SHK.SHOP</span>. Assignment Thiết kế Web giới thiệu Mô
+        hình.
       </p>
     </footer>
+
+    <script src="../js/script.js"></script>
   </body>
 </html>

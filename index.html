@@ -63,17 +63,57 @@
       <div class="section-header">
         <h2>Mô Hình Tiêu Điểm</h2>
         <div class="filter-tabs">
+          <!-- Tìm cụm nút kế bên tiêu đề MÔ HÌNH TIÊU ĐIỂM và sửa lại thành: -->
           <button
             class="filter-btn active"
-            onclick="filterCategory('all', event)"
+            onclick="filterHomeProducts('all', this)"
           >
-            Tất cả
+            TẤT CẢ
           </button>
-          <button class="filter-btn" onclick="filterCategory('scale', event)">
-            Scale
+          <button
+            class="filter-btn"
+            onclick="filterHomeProducts('strangerthing', this)"
+          >
+            STRANGER THING
           </button>
-          <button class="filter-btn" onclick="filterCategory('nendo', event)">
-            Nendoroid
+          <button
+            class="filter-btn"
+            onclick="filterHomeProducts('marvel', this)"
+          >
+            MARVEL
+          </button>
+          <button
+            class="filter-btn"
+            onclick="filterHomeProducts('naruto', this)"
+          >
+            NARUTO
+          </button>
+          <button
+            class="filter-btn"
+            onclick="filterHomeProducts('frieren', this)"
+          >
+            FRIEREN
+          </button>
+          <button
+            class="filter-btn"
+            onclick="filterHomeProducts('ghibli', this)"
+          >
+            GHIBLI
+          </button>
+          <button
+            class="filter-btn"
+            onclick="filterHomeProducts('shangrila', this)"
+          >
+            SHANGRI-LA
+          </button>
+          <button
+            class="filter-btn"
+            onclick="filterHomeProducts('junji-ito', this)"
+          >
+            JUNJI ITO
+          </button>
+          <button class="filter-btn" onclick="filterHomeProducts('mha', this)">
+            MY HERO ACADEMIA
           </button>
         </div>
       </div>
@@ -111,6 +151,27 @@
           localStorage.removeItem("currentUser"); // Đăng xuất
           window.location.reload();
         };
+      }
+    </script>
+
+    <script>
+      // Thêm hàm này vào script của trang index.html
+      function filterHomeProducts(type, btnElement) {
+        // 1. Xử lý giao diện: Bỏ màu đỏ (active) ở nút cũ, chuyển sang nút vừa bấm
+        const sisterButtons =
+          btnElement.parentElement.querySelectorAll("button");
+        sisterButtons.forEach((btn) => btn.classList.remove("active")); // Xóa active cũ
+        btnElement.classList.add("active"); // Thêm active vào nút hiện tại
+
+        // 2. Xử lý dữ liệu: Lọc mảng sản phẩm dựa theo loại (type)
+        let filteredResult = products;
+        if (type !== "all") {
+          filteredResult = products.filter((item) => item.type === type);
+        }
+
+        // 3. Hiển thị danh sách đã lọc ra màn hình
+        // Để tham số thứ hai là FALSE vì file index.html nằm ở ngoài thư mục gốc
+        loadAllProducts(filteredResult, false);
       }
     </script>
   </body>

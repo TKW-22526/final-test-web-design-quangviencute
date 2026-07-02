@@ -3,53 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sản Phẩm - SHK SHOP</title>
+    <title>Sản Phẩm - SHK</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/style.css" />
-    <style>
-      .product-page-layout {
-        display: grid;
-        grid-template-columns: 250px 1fr;
-        gap: 30px;
-        margin-top: 100px;
-      }
-      .sidebar-filter {
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        padding: 20px;
-        border-radius: 8px;
-        height: fit-content;
-      }
-      .filter-group {
-        margin-bottom: 25px;
-      }
-      .filter-group h3 {
-        font-size: 14px;
-        text-transform: uppercase;
-        margin-bottom: 12px;
-        color: var(--primary-color);
-        letter-spacing: 1px;
-      }
-      .filter-options label {
-        display: block;
-        margin-bottom: 10px;
-        font-size: 13px;
-        color: var(--text-muted);
-        cursor: pointer;
-      }
-      .filter-options input[type="checkbox"],
-      .filter-options input[type="radio"] {
-        margin-right: 8px;
-        accent-color: var(--primary-color);
-      }
-      .range-slider {
-        width: 100%;
-        accent-color: var(--primary-color);
-      }
-    </style>
+    <link rel="stylesheet" href="../css/san-pham.css" />
+    <style></style>
   </head>
   <body>
     <header>
@@ -66,6 +27,7 @@
           <li><a href="san-pham.html" class="active">Sản Phẩm</a></li>
           <li><a href="gioi-thieu.html">Giới Thiệu</a></li>
           <li><a href="lien-he.html">Liên Hệ</a></li>
+          <li><a href="dang-nhap.html" id="navAuth">Đăng Nhập</a></li>
         </ul>
         <div class="search-box">
           <input type="text" id="searchInput" placeholder="Tìm mô hình..." />
@@ -79,18 +41,42 @@
         <div class="filter-group">
           <h3>Dòng Mô Hình</h3>
           <div class="filter-options">
-            <!-- Đã thêm 'checked' vào ô mecha để ban đầu trang web hiện đủ tất cả dòng máy -->
+            <!-- Đã đổi value chuẩn có dấu gạch để khớp 100% với link bên danh mục -->
             <label
-              ><input type="checkbox" name="type" value="scale" checked /> Scale
-              Figure</label
+              ><input type="checkbox" name="type" value="strangerthing" />
+              STRANGER THINGS</label
             >
             <label
-              ><input type="checkbox" name="type" value="nendo" checked />
-              Nendoroid</label
+              ><input type="checkbox" name="type" value="marvel" />
+              MARVEL</label
             >
             <label
-              ><input type="checkbox" name="type" value="mecha" checked /> Mecha
-              & Plamo</label
+              ><input type="checkbox" name="type" value="naruto" />
+              NARUTO</label
+            >
+            <label
+              ><input type="checkbox" name="type" value="one-piece" /> ONE
+              PIECE</label
+            >
+            <label
+              ><input type="checkbox" name="type" value="frieren" />
+              FRIEREN</label
+            >
+            <label
+              ><input type="checkbox" name="type" value="ghibli" /> GHIBLI
+              STUDIO</label
+            >
+            <label
+              ><input type="checkbox" name="type" value="shangrila" />
+              SHANGRI-LA FRONTIER</label
+            >
+            <label
+              ><input type="checkbox" name="type" value="junji-ito" /> JUNJI
+              ITO</label
+            >
+            <label
+              ><input type="checkbox" name="type" value="mha" /> MY HERO
+              ACADEMIA</label
             >
           </div>
         </div>
@@ -136,7 +122,7 @@
           'input[name="type"]:checked',
         );
 
-        // 2. Chuyển đổi danh sách checkbox thành một mảng chứa các chữ giá trị (Ví dụ: ['scale', 'nendo'])
+        // 2. Chuyển đổi danh sách checkbox thành một mảng chứa các chữ giá trị
         const selectedTypes = Array.from(checkedBoxes).map((cb) => cb.value);
 
         // 3. Nếu không tích chọn bất kỳ ô nào, ẩn sạch sản phẩm và báo lỗi
@@ -158,17 +144,42 @@
       }
 
       // =========================================================
+      // ĐOẠN CODE ĐỌC TÍN HIỆU TỪ URL TRANG DANH MỤC TRUYỀN SANG
+      // =========================================================
+      const urlParams = new URLSearchParams(window.location.search);
+      const typeFromUrl = urlParams.get("type"); // Nhận diện các chữ 'marvel', 'naruto', 'stranger-things', 'one-piece'
+
+      if (typeFromUrl) {
+        // Nếu chuyển từ trang danh mục qua -> tắt hết tất cả các ô tick
+        document
+          .querySelectorAll('input[name="type"]')
+          .forEach((cb) => (cb.checked = false));
+
+        // Tìm đúng ô checkbox có value trùng với trên link và tích nó lên
+        const targetCheckbox = document.querySelector(
+          `input[name="type"][value="${typeFromUrl}"]`,
+        );
+        if (targetCheckbox) {
+          targetCheckbox.checked = true;
+        }
+      } else {
+        // Nếu khách nhấn trực tiếp vào tab "Sản Phẩm" -> tự động tích tất cả để hiện đủ hàng ban đầu
+        document
+          .querySelectorAll('input[name="type"]')
+          .forEach((cb) => (cb.checked = true));
+      }
+
+      // =========================================================
       // KÍCH HOẠT VÀ GẮN BỘ LẮNG NGHE SỰ KIỆN
       // =========================================================
 
-      // Chạy hàm lọc ngay khi vừa tải trang để đồng bộ với trạng thái các ô tích đầu tiên
+      // Chạy hàm lọc dựa trên cấu hình checkbox vừa setup ở trên
       filterProductsByCheckbox();
 
       // Kích hoạt tính năng tìm kiếm qua ô #searchInput cho trang này
       searchProducts(true);
 
       // Gắn sự kiện 'change' (thay đổi) cho toàn bộ checkbox dòng mô hình
-      // Cứ mỗi lần click chọn/bỏ chọn là hàm lọc tự động chạy và ẩn/hiện sản phẩm ngay lập tức
       document.querySelectorAll('input[name="type"]').forEach((checkbox) => {
         checkbox.addEventListener("change", filterProductsByCheckbox);
       });

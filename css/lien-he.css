@@ -1,0 +1,46 @@
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  margin-top: 120px;
+}
+.contact-info h1 {
+  font-size: 32px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.contact-info p {
+  color: var(--text-muted);
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+.contact-form {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 30px;
+  border-radius: 8px;
+}
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background: #0d0d0f;
+  border: 1px solid var(--border-color);
+  padding: 12px;
+  color: #fff;
+  border-radius: 4px;
+  outline: none;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-color);
+}
