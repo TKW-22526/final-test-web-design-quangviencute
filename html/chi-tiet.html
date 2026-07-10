@@ -22,7 +22,7 @@
         border-radius: 4px;
         cursor: pointer;
         transition: all 0.3s ease;
-        white-space: nowrap; /* Giữ chữ thẳng hàng không bị gãy xuống dòng */
+        white-space: nowrap;
       }
 
       /* Hiệu ứng lung linh khi rê chuột vào */
@@ -31,6 +31,83 @@
         color: white;
         box-shadow: 0 0 15px rgba(255, 77, 77, 0.5);
         transform: translateY(-2px);
+      }
+
+      /* 🌟 KHU VỰC CSS ĐÁNH GIÁ KHÁCH HÀNG (MỚI THÊM) */
+      .reviews-section {
+        grid-column: span 2; /* Ép phần đánh giá trải dài hết cả 2 cột cho đẹp */
+        margin-top: 60px;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+      .reviews-section h3 {
+        color: #333 !important;
+        font-size: 22px;
+        border-bottom: 2px solid #f5f6fa;
+        padding-bottom: 12px;
+        margin-bottom: 20px;
+        font-weight: 800;
+      }
+      .review-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .review-item {
+        border-bottom: 1px dashed #edf2f7;
+        padding-bottom: 15px;
+      }
+      .review-item:last-child {
+        border-bottom: none; /* Khỏi gạch chân cho đứa cuối cùng */
+        padding-bottom: 0;
+      }
+      .review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+      }
+      .reviewer-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .reviewer-avatar-mini {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: #f1f2f6;
+        color: #555;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        border: 1px solid #ddd;
+      }
+      .reviewer-name {
+        font-weight: 600;
+        color: #333;
+        font-size: 14px;
+      }
+      .review-stars {
+        color: #ffbe1a; /* Màu vàng cam chuẩn sao xịn */
+        font-size: 14px;
+        letter-spacing: 2px;
+      }
+      .review-comment {
+        color: #4a4a4a;
+        font-size: 14px;
+        line-height: 1.6;
+        padding-left: 45px; /* Đẩy thụt lề vào cho thẳng hàng với tên chữ */
+      }
+      .review-date {
+        font-size: 11px;
+        color: #a0aec0;
+        margin-top: 4px;
+        padding-left: 45px;
       }
     </style>
   </head>
@@ -117,6 +194,161 @@
           </button>
         </div>
       </div>
+
+      <section class="reviews-section">
+        <h3>💬 ĐÁNH GIÁ TỪ KHÁCH HÀNG (10)</h3>
+        <div class="review-list">
+          <div class="review-item">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <div class="reviewer-avatar-mini">A</div>
+                <span class="reviewer-name">Nguyễn Văn A</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+            </div>
+            <p class="review-comment">
+              Mô hình siêu đẹp bồ ơi, nước sơn sắc nét đáng đồng tiền bát gạo
+              luôn á! Đóng gói cực kỳ kỹ càng.
+            </p>
+            <div class="review-date">Đã đăng ngày: 12/05/2026</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <div class="reviewer-avatar-mini">B</div>
+                <span class="reviewer-name">Trần Thị B</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+            </div>
+            <p class="review-comment">
+              Giao hàng siêu nhanh luôn, mới đặt hôm trước hôm sau đã nhận được
+              rồi. Hộp nguyên vẹn móp méo gì hết trơn.
+            </p>
+            <div class="review-date">Đã đăng ngày: 10/05/2026</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <div class="reviewer-avatar-mini">C</div>
+                <span class="reviewer-name">Lê Hoàng C</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+            </div>
+            <p class="review-comment">
+              Hàng chính hãng GSC có khác, chi tiết nhỏ nhìn mê mẩn luôn. Sẽ
+              tiếp tục ủng hộ SHK Shop dài dài nha.
+            </p>
+            <div class="review-date">Đã đăng ngày: 08/05/2026</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <div class="reviewer-avatar-mini">D</div>
+                <span class="reviewer-name">Phạm Minh D</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+            </div>
+            <p class="review-comment">
+              Chủ shop tư vấn siêu nhiệt tình dễ thương, phục vụ 10 điểm không
+              có nhưng. Đồ đẹp xuất sắc luôn nha bồ.
+            </p>
+            <div class="review-date">Đã đăng ngày: 04/05/2026</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <div class="reviewer-avatar-mini">E</div>
+                <span class="reviewer-name">Hoàng An E</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+            </div>
+            <p class="review-comment">
+              Xứng đáng nhận 5 sao! Khớp nối mô hình chắc chắn, tạo dáng siêu
+              ngầu. Đáng để thêm vào bộ sưu tập.
+            </p>
+            <div class="review-date">Đã đăng ngày: 30/04/2026</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <div class="reviewer-avatar-mini">F</div>
+                <span class="reviewer-name">Vũ Đăng F</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+            </div>
+            <p class="review-comment">
+              Hàng về tay đẹp y như hình chụp trên web vậy đó. Hộp figure đẹp
+              không tì vết, trưng lên tủ nhìn bao ngầu.
+            </p>
+            <div class="review-date">Đã đăng ngày: 28/04/2026</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <div class="reviewer-avatar-mini">G</div>
+                <span class="reviewer-name">Đỗ Mỹ G</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+            </div>
+            <p class="review-comment">
+              Giá cả quá là hợp lý cho một em mô hình chất lượng đỉnh như này.
+              Gói chống sốc dày cộp, rất an tâm.
+            </p>
+            <div class="review-date">Đã đăng ngày: 25/04/2026</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <div class="reviewer-avatar-mini">H</div>
+                <span class="reviewer-name">Bùi Tiến H</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+            </div>
+            <p class="review-comment">
+              Tìm mãi mới thấy shop có sẵn em này để mua, giao nhanh đóng gói
+              cẩn thận cực kỳ mến cách làm việc của shop.
+            </p>
+            <div class="review-date">Đã đăng ngày: 19/04/2026</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <div class="reviewer-avatar-mini">K</div>
+                <span class="reviewer-name">Ngô Gia K</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+            </div>
+            <p class="review-comment">
+              Nước sơn mượt mà, không bị lem luốc tí nào luôn bồ ơi. 5 sao uy
+              tín cho SHK Shop, chất lượng khỏi bàn cãi.
+            </p>
+            <div class="review-date">Đã đăng ngày: 15/04/2026</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <div class="reviewer-avatar-mini">M</div>
+                <span class="reviewer-name">Phan Quỳnh M</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+            </div>
+            <p class="review-comment">
+              Sản phẩm tuyệt vời ông mặt trời! Sẽ rủ thêm hội bạn đam mê mô hình
+              qua đây cúng tiền cho shop tiếp nè haha.
+            </p>
+            <div class="review-date">Đã đăng ngày: 11/04/2026</div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer>
@@ -129,16 +361,13 @@
     <script src="../js/script.js"></script>
 
     <script>
-      // 1. Đọc mã ID từ thanh địa chỉ URL (?id=10)
       const urlParams = new URLSearchParams(window.location.search);
       const productId = urlParams.get("id");
 
-      // 2. Tìm sản phẩm trong mảng bằng cách ép kiểu String để tránh lỗi Số vs Chữ
       const foundProduct = products.find(
         (obj) => String(obj.id) === String(productId),
       );
 
-      // 3. Nếu tìm thấy sản phẩm, tiến hành thay thế ruột HTML bằng dữ liệu động
       if (foundProduct) {
         document.getElementById("name").innerText = foundProduct.name;
         document.getElementById("price").innerText = foundProduct.price;
@@ -148,13 +377,11 @@
           foundProduct.description ||
           "Chưa có mô tả chi tiết cho sản phẩm này.";
 
-        // Cập nhật đường dẫn ảnh cho ảnh chính và cả các thumbnail
         document.getElementById("mainDisplayImage").src = foundProduct.image;
         document.getElementById("mainDisplayImage").alt = foundProduct.name;
         document.getElementById("thumb1").src = foundProduct.image;
         document.getElementById("thumb2").src = foundProduct.image;
 
-        // Đổ dữ liệu chi tiết, cho phép đọc thẻ <b> và <br>
         if (foundProduct.details) {
           document.getElementById("details").innerHTML = foundProduct.details;
         } else {
@@ -162,12 +389,10 @@
             "Đang cập nhật thông số...";
         }
 
-        // KÍCH HOẠT HÀM CLICK CHO NÚT GIỎ HÀNG VỪA THÊM
         document.getElementById("addToCartBtn").onclick = function () {
           addToCart(foundProduct.id);
         };
 
-        // ĐÃ SỬA: BẤM PRE-ORDER CHỈ HIỆN THÔNG BÁO THÀNH CÔNG, KHÔNG CHO VÀO GIỎ HÀNG
         document.getElementById("preOrderBtn").onclick = function () {
           alert(
             "🎉 Đặt hàng trước thành công mô hình: " +
@@ -176,10 +401,8 @@
           );
         };
 
-        // Đổi luôn tiêu đề trên tab trình duyệt cho chuyên nghiệp
         document.title = foundProduct.name + " - Crimson GSC";
       } else {
-        // Nếu bấm bậy bạ ra ID không tồn tại, hiện thông báo lỗi ngay tại khung chính
         document.getElementById("main-container").innerHTML = `
               <div style="grid-column: span 2; text-align: center; padding: 100px 20px; color: var(--primary-color);">
                   <h2 style="font-weight: 800; font-size: 28px;">SẢN PHẨM KHÔNG TỒN TẠI HOẶC ĐÃ BỊ XÓA!</h2>
@@ -188,7 +411,6 @@
               </div>`;
       }
 
-      // Hàm xử lý khi người dùng click vào ảnh nhỏ thumbnail
       function changeImage(element) {
         document.getElementById("mainDisplayImage").src = element.src;
         document

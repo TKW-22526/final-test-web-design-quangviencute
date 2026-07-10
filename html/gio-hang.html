@@ -10,86 +10,7 @@
     />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/gio-hang.css" />
-    <style>
-      /* CSS BỔ SUNG ĐỂ ĐẢM BẢO GIAO DIỆN GIỎ HÀNG ĐẸP MẮT VÀ KHÔNG BỊ VỠ TỶ LỆ */
-      .cart-item-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 15px;
-        background: #fcfcfc;
-        border-radius: 6px;
-        margin-bottom: 15px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        gap: 15px;
-      }
-      .cart-item-row img {
-        width: 70px;
-        height: 70px;
-        object-fit: cover;
-        border-radius: 4px;
-      }
-      .cart-item-info {
-        flex: 1;
-      }
-      .cart-item-info h4 {
-        margin: 0 0 5px 0;
-        font-size: 15px;
-        color: #333;
-      }
-      .cart-item-info .item-price {
-        color: #ff4d4d;
-        font-weight: 600;
-        font-size: 14px;
-      }
-      .badge-preorder {
-        background: #ff9f43;
-        color: rgb(255, 255, 255);
-        font-size: 10px;
-        padding: 2px 6px;
-        border-radius: 3px;
-        margin-left: 5px;
-        font-weight: 800;
-        display: inline-block;
-        vertical-align: middle;
-      }
-      .quantity-controls {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        padding: 3px 8px;
-        background: #460a0a;
-      }
-      .quantity-controls button {
-        background: none;
-        border: none;
-        font-weight: bold;
-        font-size: 16px;
-        cursor: pointer;
-        padding: 0 5px;
-        color: #555;
-      }
-      .quantity-controls span {
-        font-weight: 600;
-        min-width: 20px;
-        text-align: center;
-      }
-      .btn-delete-item {
-        background: transparent;
-        border: none;
-        color: #ff4d4d;
-        font-weight: 600;
-        cursor: pointer;
-        font-size: 13px;
-        transition: all 0.2s;
-      }
-      .btn-delete-item:hover {
-        text-decoration: underline;
-        transform: scale(1.05);
-      }
-    </style>
+    <style></style>
   </head>
   <body>
     <header>
@@ -199,10 +120,8 @@
         const container = document.getElementById("cartItemsList");
         if (!container) return;
 
-        // Mở hòm lấy dữ liệu ra
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        // Nếu giỏ hàng rỗng: Hiện thông báo trống gốc của bồ
         if (cart.length === 0) {
           container.innerHTML = `
             <div class="empty-cart">
@@ -214,8 +133,7 @@
           return;
         }
 
-        // Nếu có hàng: Quét mảng giỏ hàng để vẽ từng dòng sản phẩm
-        container.innerHTML = ""; // Xóa dữ liệu rác cũ
+        container.innerHTML = "";
         let totalCartMoney = 0;
 
         cart.forEach(function (item) {
@@ -223,7 +141,6 @@
           let itemTotalMoney = singlePrice * (item.quantity || 1);
           totalCartMoney += itemTotalMoney;
 
-          // Kiểm tra xem món này có nhãn đặt trước không
           let preorderBadge =
             item.status === "Pre-order"
               ? `<span class="badge-preorder">PRE-ORDER</span>`
@@ -247,7 +164,6 @@
           container.appendChild(row);
         });
 
-        // Cập nhật lại 2 ô tổng tiền trên giao diện đơn hàng
         document.getElementById("totalPrice").innerText =
           formatNumberToPrice(totalCartMoney);
         document.getElementById("finalPrice").innerText =
@@ -263,14 +179,13 @@
 
         if (product) {
           product.quantity += delta;
-          // Nếu giảm xuống dưới 1 thì tự động xóa món đó ra luôn
           if (product.quantity < 1) {
             cart = cart.filter((item) => String(item.id) !== String(productId));
           }
           localStorage.setItem("cart", JSON.stringify(cart));
 
-          renderCartPage(); // Vẽ lại giao diện giỏ hàng
-          if (typeof updateCartBadge === "function") updateCartBadge(); // Đồng bộ con số trên Menu navbar
+          renderCartPage();
+          if (typeof updateCartBadge === "function") updateCartBadge();
         }
       }
 
@@ -280,11 +195,11 @@
         cart = cart.filter((item) => String(item.id) !== String(productId));
 
         localStorage.setItem("cart", JSON.stringify(cart));
-        renderCartPage(); // Vẽ lại giao diện giỏ hàng
-        if (typeof updateCartBadge === "function") updateCartBadge(); // Đồng bộ con số trên Menu navbar
+        renderCartPage();
+        if (typeof updateCartBadge === "function") updateCartBadge();
       }
 
-      // 6. Hàm xử lý dọn dẹp khi bấm nút THANH TOÁN
+      // 6. HÀM XỬ LÝ THANH TOÁN
       function processCheckout() {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         if (cart.length === 0) {
@@ -294,13 +209,38 @@
           return;
         }
 
-        alert("Đặt hàng thành công! Đồ án này xứng đáng 10 điểm! 🎉");
-        localStorage.removeItem("cart"); // Dọn sạch hòm đồ sau mua hàng
-        window.location.reload(); // Tải lại trang để về trạng thái trống gọn gàng
+        let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        if (!currentUser) {
+          alert(
+            "Bồ ơi, vui lòng đăng nhập tài khoản trước để hệ thống lưu thông tin giao hàng và theo dõi đơn nhé! 🔑",
+          );
+          window.location.href = "dang-nhap.html";
+          return;
+        }
+
+        let orders = JSON.parse(localStorage.getItem("orders")) || [];
+        let newOrder = {
+          orderId: "SHK" + Math.floor(100000 + Math.random() * 900000),
+          date: new Date().toLocaleDateString("vi-VN"),
+          items: cart,
+          total: document.getElementById("finalPrice").innerText,
+          status: "Đang giao hàng",
+        };
+
+        orders.push(newOrder);
+        localStorage.setItem("orders", JSON.stringify(orders));
+
+        alert(
+          "Đặt hàng thành công! Đơn hàng đã được chuyển vào Trang Cá Nhân để bồ theo dõi hành trình! 🎉",
+        );
+        localStorage.removeItem("cart");
+        window.location.href = "trang-ca-nhan.html";
       }
 
       // Chạy khởi động quét dữ liệu ngay khi mở trang giỏ hàng lên
-      document.addEventListener("DOMContentLoaded", renderCartPage);
+      document.addEventListener("DOMContentLoaded", function () {
+        renderCartPage();
+      });
     </script>
   </body>
 </html>

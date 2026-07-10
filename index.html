@@ -4,27 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GSC Crimson - Trang Chủ Mô Hình</title>
-    <!-- Nhúng font chữ Google -->
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap"
       rel="stylesheet"
     />
-    <!-- ĐƯỜNG DẪN KẾT NỐI FILE CSS THEO CẤU TRÚC THƯ MỤC CỦA BẠN -->
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <!-- NAV BAR -->
     <header>
       <nav class="navbar">
         <div class="logo-container">
-          <!-- Sử dụng logo.jpg từ thư mục assets -->
           <img src="assets/logo.jpg" alt="Logo" class="logo-img" />
           <div class="logo-text">
             <a href="index.html">SHK<span>.SHOP</span></a>
           </div>
         </div>
 
-        <!-- ĐƯỜNG DẪN ĐẾN CÁC FILE TRANG CON TRONG THƯ MỤC HTML/ -->
         <ul class="nav-links">
           <li><a href="index.html" class="active">Trang Chủ</a></li>
           <li><a href="html/danh-muc.html">Danh Mục</a></li>
@@ -58,7 +53,6 @@
       </nav>
     </header>
 
-    <!-- HERO BANNER -->
     <section class="hero">
       <div class="hero-content">
         <span class="hero-tag">Pre-Order Now</span>
@@ -76,12 +70,10 @@
       </div>
     </section>
 
-    <!-- DANH SÁCH MÔ HÌNH TIÊU ĐIỂM -->
     <main class="main-container">
       <div class="section-header">
         <h2>Mô Hình Tiêu Điểm</h2>
         <div class="filter-tabs">
-          <!-- Tìm cụm nút kế bên tiêu đề MÔ HÌNH TIÊU ĐIỂM và sửa lại thành: -->
           <button
             class="filter-btn active"
             onclick="filterHomeProducts('all', this)"
@@ -136,11 +128,9 @@
         </div>
       </div>
 
-      <!-- LƯỚI SẢN PHẨM RỖNG - JAVASCRIPT SẼ TỰ ĐỘNG SINH CODE VÀO ĐÂY -->
       <div class="products-grid" id="productGrid"></div>
     </main>
 
-    <!-- FOOTER -->
     <footer>
       <p>
         &copy; 2026 <span>CRIMSON.GSC</span>. Assignment Thiết kế Web giới thiệu
@@ -148,47 +138,30 @@
       </p>
     </footer>
 
-    <!-- ĐƯỜNG DẪN KẾT NỐI FILE SCRIPT JS -->
     <script src="js/script.js"></script>
+
     <script>
       // 1. Tự động đổ dữ liệu từ mảng products vào giao diện khi vừa tải trang
-      // Tham số thứ hai là `false` vì file index.html đang nằm ngoài thư mục gốc
       loadAllProducts(products, false);
 
       // 2. Kích hoạt bộ lắng nghe sự kiện tìm kiếm cho ô nhập liệu #searchInput
       searchProducts(false);
-    </script>
-    <script>
-      // Kiểm tra nếu có người dùng đã đăng nhập thành công
-      const currentUser = localStorage.getItem("currentUser");
-      if (currentUser) {
-        const navAuth = document.getElementById("navAuth");
-        navAuth.innerText = `Hi, ${currentUser} (Thoát)`;
-        navAuth.href = "#";
-        navAuth.onclick = function () {
-          localStorage.removeItem("currentUser"); // Đăng xuất
-          window.location.reload();
-        };
-      }
-    </script>
 
-    <script>
-      // Thêm hàm này vào script của trang index.html
+      // 3. Hàm lọc sản phẩm theo danh mục ngay tại trang chủ
       function filterHomeProducts(type, btnElement) {
-        // 1. Xử lý giao diện: Bỏ màu đỏ (active) ở nút cũ, chuyển sang nút vừa bấm
+        // Xử lý giao diện: Bỏ active ở nút cũ, chuyển sang nút vừa bấm
         const sisterButtons =
           btnElement.parentElement.querySelectorAll("button");
-        sisterButtons.forEach((btn) => btn.classList.remove("active")); // Xóa active cũ
-        btnElement.classList.add("active"); // Thêm active vào nút hiện tại
+        sisterButtons.forEach((btn) => btn.classList.remove("active"));
+        btnElement.classList.add("active");
 
-        // 2. Xử lý dữ liệu: Lọc mảng sản phẩm dựa theo loại (type)
+        // Xử lý dữ liệu: Lọc mảng sản phẩm dựa theo loại (type)
         let filteredResult = products;
         if (type !== "all") {
           filteredResult = products.filter((item) => item.type === type);
         }
 
-        // 3. Hiển thị danh sách đã lọc ra màn hình
-        // Để tham số thứ hai là FALSE vì file index.html nằm ở ngoài thư mục gốc
+        // Hiển thị danh sách đã lọc ra màn hình
         loadAllProducts(filteredResult, false);
       }
     </script>

@@ -1,46 +1,5 @@
 // =========================================================
-// 1. TỰ ĐỘNG ĐỒNG BỘ TÊN NGƯỜI ĐĂNG NHẬP TRÊN THANH MENU (Đã đưa lên đầu)
-// =========================================================
-document.addEventListener("DOMContentLoaded", function () {
-  const navLinks = document.querySelector(".nav-links");
-  if (!navLinks) return; // Nếu trang nào không có thanh menu thì bỏ qua
-
-  // Lấy đúng cái tên user mà trang dang-nhap.html đã cất vào máy
-  const savedUser = localStorage.getItem("currentUser");
-
-  if (savedUser) {
-    // Nếu có người đăng nhập: Tạo thẻ <li> để tự động chèn vào menu
-    const li = document.createElement("li");
-    li.className = "user-status";
-    li.style.fontSize = "13px";
-    li.style.fontWeight = "600";
-    li.style.color = "#aaa";
-    li.style.marginLeft = "15px"; // Khoảng cách với nút Liên Hệ
-
-    // Chèn chữ tên User và nút (THOÁT) màu đỏ
-    li.innerHTML = `HI, ${savedUser.toUpperCase()} <span class="logout-btn" style="color: #ff4d4d; margin-left: 5px; cursor: pointer; font-weight: 800;">(THOÁT)</span>`;
-
-    // Xử lý khi bấm nút (THOÁT)
-    li.querySelector(".logout-btn").addEventListener("click", function () {
-      localStorage.removeItem("currentUser"); // Xóa người dùng hiện tại khỏi máy
-      window.location.reload(); // Tải lại trang để quay về trạng thái chưa đăng nhập
-    });
-
-    // Gắn vào cuối thanh Menu nav-links
-    navLinks.appendChild(li);
-
-    // Tự động ẩn cái nút "Đăng Nhập" gốc trên menu đi cho đẹp
-    const loginLink =
-      document.querySelector('a[href="dang-nhap.html"]') ||
-      document.getElementById("navAuth");
-    if (loginLink && loginLink.parentElement) {
-      loginLink.parentElement.style.display = "none";
-    }
-  }
-});
-
-// =========================================================
-// 2. KHO DỮ LIỆU CHUNG CHO TOÀN BỘ WEBSITE
+// 1. KHO DỮ LIỆU CHUNG CHO TOÀN BỘ WEBSITE
 // =========================================================
 const products = [
   {
@@ -1541,7 +1500,39 @@ const products = [
     details:
       "<b>Tỷ lệ:</b> 1/10<br><b>Chất liệu:</b> PVC cao cấp<br><b>Hãng:</b> BellFine<br><b>Phụ kiện:</b> Mũ bảo hiểm phi hành gia nhựa trong suốt (tháo rời được), các mảnh đá diorama trôi nổi được liên kết bằng trục trong suốt, đế mây hồng.",
   },
-];
+]; // Bồ cứ giữ nguyên mảng danh sách sản phẩm của bồ ở đây nhé
+
+// =========================================================
+// 2. TỰ ĐỘNG ĐỔI NÚT ĐĂNG NHẬP THÀNH TÊN USER TRÊN THANH MENU
+// =========================================================
+function checkNavbarLogin() {
+  const currentUserRaw = localStorage.getItem("currentUser");
+  const navAuth = document.getElementById("navAuth");
+
+  if (navAuth && currentUserRaw) {
+    try {
+      // Chuyển chuỗi chữ {"NAME":...} thành Object để máy hiểu
+      const currentUser = JSON.parse(currentUserRaw);
+
+      // Lấy đúng cái Tên người dùng ra để hiển thị và ép viết hoa cho đẹp thanh menu
+      const userName = currentUser.name || currentUser.NAME || "TRANG CÁ NHÂN";
+      navAuth.innerText = userName.toUpperCase();
+
+      // Tự động kiểm tra đường dẫn thông minh để không bị lỗi 404 khi chuyển trang
+      const isInHtmlFolder = window.location.pathname.includes("/html/");
+      navAuth.href = isInHtmlFolder
+        ? "trang-ca-nhan.html"
+        : "html/trang-ca-nhan.html";
+    } catch (error) {
+      // Phòng hờ dữ liệu cũ không phải JSON thì hiện chuỗi thô
+      navAuth.innerText = currentUserRaw.toUpperCase();
+    }
+  }
+}
+
+// Kích hoạt chạy ngay khi trang web tải xong
+document.addEventListener("DOMContentLoaded", checkNavbarLogin);
+
 // =========================================================
 // 3. HÀM TẠO CARD MÔ HÌNH DÂN CHƠI
 // =========================================================
@@ -1592,7 +1583,7 @@ function loadAllProducts(objArray, isInHtmlFolder = false) {
 }
 
 // =========================================================
-// 5. HÀM TÌM KIẾM MÔ HÌNH (Đã đóng ngoặc chuẩn chỉnh)
+// 5. HÀM TÌM KIẾM MÔ HÌNH
 // =========================================================
 function searchProducts(isInHtmlFolder = false) {
   const searchInput = document.getElementById("searchInput");
@@ -1610,13 +1601,13 @@ function searchProducts(isInHtmlFolder = false) {
       loadAllProducts(filteredProducts, isInHtmlFolder);
     });
   }
-} // <--- CHÍNH LÀ NÓ! Đã đóng ngoặc ở đây để giải thoát cho giỏ hàng!
+}
 
 // =========================================================
-// 6. HỆ THỐNG XỬ LÝ GIỎ HÀNG (SHOPPING CART) - ĐÃ ĐƯỢC ĐƯA RA TOÀN CỤC
+// 6. HỆ THỐNG XỬ LÝ GIỎ HÀNG (SHOPPING CART)
 // =========================================================
 
-// 1. Hàm cập nhật số lượng sản phẩm hiển thị trên Badge Menu
+// 1. Hàm cập nhật số lượng sản phẩm hiển thị trên Badge Giỏ Hàng
 function updateCartBadge() {
   const cartCount = document.getElementById("cartCount");
   if (!cartCount) return;
@@ -1662,18 +1653,14 @@ function addToCart(productId) {
       alert("Thêm vào giỏ hàng thành công! 🎉");
     } else {
       alert("⚠️ LỖI: Không tìm thấy mô hình có ID: " + productId);
-      console.error("Không tìm thấy sản phẩm với ID:", productId);
     }
   }
 }
 
-// =========================================================
-// HÀM XỬ LÝ KHI BẤM NÚT PRE-ORDER (ĐẶT TRƯỚC)
-// =========================================================
+// 3. Hàm xử lý khi bấm nút Đặt Trước (Pre-order)
 function preOrder(productId) {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  // 1. Kiểm tra xem món này đã có trong giỏ chưa
   let existingProduct = cart.find(function (item) {
     return String(item.id) === String(productId);
   });
@@ -1686,7 +1673,6 @@ function preOrder(productId) {
       "Đặt trước thành công! 🎉 Sản phẩm đã được tăng số lượng trong giỏ hàng.",
     );
   } else {
-    // 2. Nếu chưa có, đi tìm thông tin trong mảng products gốc
     let productInfo = products.find(function (p) {
       return String(p.id) === String(productId);
     });
@@ -1698,7 +1684,7 @@ function preOrder(productId) {
         price: productInfo.price,
         image: productInfo.image,
         quantity: 1,
-        status: "Pre-order", // Đánh dấu để sau này vào giỏ hàng biết đây là hàng đặt trước
+        status: "Pre-order",
       });
 
       localStorage.setItem("cart", JSON.stringify(cart));
@@ -1707,12 +1693,12 @@ function preOrder(productId) {
         "Đặt trước (Pre-order) thành công! 🎉 Mô hình đã được thêm vào giỏ hàng.",
       );
     } else {
-      // Phòng trường hợp bồ test trên trang chi-tiet.html bằng một biến sản phẩm lẻ khác
       alert("Đặt trước thành công! 🎉 (Hệ thống đã ghi nhận yêu cầu)");
     }
   }
 }
-// 3. ÉP CHẠY TỰ ĐỘNG KHI LOAD TRANG
+
+// Tự động cập nhật số lượng giỏ hàng khi load trang
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", updateCartBadge);
 } else {

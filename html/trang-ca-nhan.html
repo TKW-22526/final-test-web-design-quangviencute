@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang Cá Nhân - SHK SHOP</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/trang-ca-nhan.css" />
+    <style></style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo-container">
+          <img src="../assets/logo.jpg" alt="Logo" class="logo-img" />
+          <div class="logo-text">
+            <a href="../index.html">SHK<span>.SHOP</span></a>
+          </div>
+        </div>
+        <ul class="nav-links">
+          <li><a href="../index.html">Trang Chủ</a></li>
+          <li><a href="danh-muc.html">Danh Mục</a></li>
+          <li><a href="san-pham.html">Sẩm Phẩm</a></li>
+          <li><a href="gioi-thieu.html">Giới Thiệu</a></li>
+          <li><a href="lien-he.html">Liên Hệ</a></li>
+          <li>
+            <a href="gio-hang.html" id="navCart">
+              GIỎ HÀNG
+              <span
+                id="cartCount"
+                style="
+                  background: #ff4d4d;
+                  color: #ffffff;
+                  padding: 2px 7px;
+                  border-radius: 50%;
+                  font-size: 11px;
+                  font-weight: 800;
+                  margin-left: 3px;
+                  display: inline-block;
+                  line-height: 12px;
+                  text-align: center;
+                  vertical-align: middle;
+                "
+                >0</span
+              >
+            </a>
+          </li>
+          <li>
+            <a href="trang-ca-nhan.html" class="active" id="navAuth"
+              >Trang Cá Nhân</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-container">
+      <div class="profile-layout">
+        <div class="user-card">
+          <div class="user-avatar" id="userInitial">U</div>
+          <h3 id="profileName">Tên Người Dùng</h3>
+          <p id="profileEmail">email@gmail.com</p>
+          <p style="font-size: 13px; color: #555">
+            📍 <b>Địa chỉ:</b> Toà nhà Innovation, Công viên phần mềm Quang
+            Trung, Quận 12, TP.HCM
+          </p>
+          <button class="btn-logout" onclick="handleLogout()">ĐĂNG XUẤT</button>
+        </div>
+
+        <div class="orders-container">
+          <h2>📦 LỊCH SỬ QUẢN LÝ ĐƠN HÀNG</h2>
+          <div id="ordersListSection"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>
+        &copy; 2026 <span>SHK.SHOP</span>. Assignment Thiết kế Web giới thiệu Mô
+        hình.
+      </p>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+      function loadProfileData() {
+        let currentUserRaw = localStorage.getItem("currentUser");
+        if (!currentUserRaw) {
+          alert(
+            "Bồ chưa đăng nhập kìa! Hệ thống sẽ chuyển bồ sang trang Đăng Nhập nhé. 😉",
+          );
+          window.location.href = "dang-nhap.html";
+          return;
+        }
+
+        let currentUser = JSON.parse(currentUserRaw);
+
+        const uName = currentUser.name || currentUser.NAME || "Người dùng SHK";
+        const uEmail =
+          currentUser.email || currentUser.EMAIL || "chua-cap-nhat@gmail.com";
+
+        document.getElementById("profileName").innerText = uName;
+        document.getElementById("profileEmail").innerText = uEmail;
+        document.getElementById("userInitial").innerText = uName
+          .charAt(0)
+          .toUpperCase();
+
+        let orders = JSON.parse(localStorage.getItem("orders")) || [];
+        let listContainer = document.getElementById("ordersListSection");
+
+        if (orders.length === 0) {
+          listContainer.innerHTML = `<p class="no-order">Bồ chưa có đơn hàng nào hết á! Ghé qua mua đồ nhé bồ ơi. 🛒</p>`;
+          return;
+        }
+
+        listContainer.innerHTML = "";
+
+        function formatMoney(value) {
+          if (isNaN(value)) return value;
+          return Number(value).toLocaleString("vi-VN") + "đ";
+        }
+
+        let displayOrders = [...orders].reverse();
+
+        displayOrders.forEach(function (order) {
+          let orderBlock = document.createElement("div");
+          orderBlock.className = "order-block";
+
+          let itemsHTML = "";
+          let orderItems = order.items || [];
+
+          orderItems.forEach(function (item) {
+            itemsHTML += `
+              <div class="order-item-mini">
+                <span>• ${item.name || item.NAME} (x${item.quantity})</span>
+                <span>${formatMoney(item.price || item.PRICE)}</span>
+              </div>`;
+          });
+
+          // 🛠️ ĐÃ CẬP NHẬT: Cho phép hủy cả đơn cũ ("Đang giao hàng") và đơn mới ("Đã đặt hàng")
+          let currentStatus = order.status || "Đã đặt hàng";
+          let badgeStyle = "";
+          let cancelBtnHTML = "";
+
+          if (
+            currentStatus === "Đã đặt hàng" ||
+            currentStatus === "Đang giao hàng"
+          ) {
+            badgeStyle = "background: #ffeaa7; color: #d63031;"; // Màu vàng cam Shopee
+            cancelBtnHTML = `<button onclick="cancelOrder('${order.orderId}')" class="btn-cancel-order">HỦY ĐƠN</button>`;
+          } else if (currentStatus === "Đã hủy") {
+            badgeStyle = "background: #dfe6e9; color: #636e72;"; // Màu xám khi đã hủy đơn
+          } else {
+            badgeStyle = "background: #e3faf2; color: #0ca678;";
+          }
+
+          orderBlock.innerHTML = `
+            <div class="order-header">
+              <span style="color: #333 !important;">
+                Mã đơn: <b>${order.orderId || "SHK-ORDER"}</b> | Ngày đặt: ${order.date || "Hôm nay"}
+                ${cancelBtnHTML}
+              </span>
+              <span class="status-badge" style="${badgeStyle}">${currentStatus}</span>
+            </div>
+            <div class="order-items-list">
+              ${itemsHTML}
+            </div>
+            <div class="order-total-row">
+              Tổng thanh toán: ${formatMoney(order.total || order.TOTAL)}
+            </div>
+          `;
+          listContainer.appendChild(orderBlock);
+        });
+      }
+
+      function cancelOrder(orderId) {
+        if (
+          confirm(
+            "Bồ có chắc chắn muốn hủy đơn hàng này không? Mô hình này hiếm lắm á... 😢",
+          )
+        ) {
+          let orders = JSON.parse(localStorage.getItem("orders")) || [];
+          let targetOrder = orders.find(
+            (item) => String(item.orderId) === String(orderId),
+          );
+
+          if (targetOrder) {
+            targetOrder.status = "Đã hủy";
+            localStorage.setItem("orders", JSON.stringify(orders));
+            alert(
+              "Đã hủy đơn hàng thành công! Trạng thái đã được cập nhật. 🔄",
+            );
+            loadProfileData(); // Vẽ lại giao diện ngay tức thì
+          }
+        }
+      }
+
+      function handleLogout() {
+        localStorage.removeItem("currentUser");
+        alert("Đã đăng xuất tài khoản thành công! Hẹn gặp lại bồ nhé. 👋");
+        window.location.href = "../index.html";
+      }
+
+      document.addEventListener("DOMContentLoaded", loadProfileData);
+    </script>
+  </body>
+</html>

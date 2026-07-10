@@ -37,7 +37,6 @@
         <button type="submit" class="auth-btn">Vào Hệ Thống</button>
       </form>
 
-      <!-- NÚT QUAY LẠI SHOP ĐƯỢC THÊM VÀO ĐÂY -->
       <a href="../index.html" class="back-btn">← Quay Lại Shop</a>
 
       <div class="auth-redirect">
@@ -53,14 +52,48 @@
 
           const user = document.getElementById("loginUser").value.trim();
           const pass = document.getElementById("loginPass").value;
-          const savedPassword = localStorage.getItem("user_" + user);
 
-          if (savedPassword && savedPassword === pass) {
-            alert("Đăng nhập thành công! Chào mừng quay trở lại shop.");
-            localStorage.setItem("currentUser", user);
-            window.location.href = "../index.html";
+          // 1. Lấy dữ liệu đã đăng ký trong máy ra để đối chiếu
+          const savedData = localStorage.getItem("user_" + user);
+
+          let registeredPassword = "";
+          let userDisplayName = user; // Mặc định lấy tên account làm tên hiển thị
+          let userEmail = user + "@gmail.com"; // Tự chế email ảo nếu trang đăng ký không có
+
+          // 2. Bộ phân tích dữ liệu thông minh
+          if (savedData) {
+            try {
+              // Phòng trường hợp trang dang-ky.html của bồ lưu dạng OBJECT JSON (Có đầy đủ tên, email, pass)
+              const parsed = JSON.parse(savedData);
+              if (parsed && parsed.password) {
+                registeredPassword = parsed.password;
+                userDisplayName = parsed.name || user;
+                userEmail = parsed.email || user + "@gmail.com";
+              } else {
+                registeredPassword = savedData;
+              }
+            } catch (error) {
+              // Nếu trang dang-ky.html của bồ chỉ lưu chuỗi MẬT KHẨU thuần túy
+              registeredPassword = savedData;
+            }
+          }
+
+          // 3. Kiểm tra mật khẩu bồ nhập vào có khớp không
+          if (registeredPassword && registeredPassword === pass) {
+            alert("Đăng nhập thành công! Chào mừng quay trở lại shop. 🎉");
+
+            // 🔑 BƯỚC QUAN TRỌNG: Đóng gói thành Object để đồng bộ với Trang Cá Nhân
+            const currentUserObj = {
+              name: userDisplayName,
+              email: userEmail,
+            };
+            localStorage.setItem("currentUser", JSON.stringify(currentUserObj));
+
+            // ĐIỀU HƯỚNG THÔNG MINH:
+            // Thay vì về index.html, mình đẩy thẳng sang trang cá nhân để xem thông tin/đơn hàng cho đúng chuẩn Shopee nha!
+            window.location.href = "trang-ca-nhan.html";
           } else {
-            alert("Sai tên đăng nhập hoặc mật khẩu! Vui lòng kiểm tra lại.");
+            alert("Sai tên đăng nhập hoặc mật khẩu! Vui lòng kiểm tra lại. ❌");
           }
         });
     </script>

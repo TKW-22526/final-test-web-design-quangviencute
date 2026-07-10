@@ -1,0 +1,130 @@
+/* GIAO DIỆN PROFILE CHUẨN SHOPEE */
+.profile-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 30px;
+  margin-top: 70px;
+  margin-bottom: 70px;
+  align-items: start;
+}
+.user-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+.user-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #ff4d4d;
+  color: white;
+  font-size: 36px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto;
+}
+.user-card h3 {
+  margin: 0 0 5px 0;
+  font-size: 18px;
+  color: #333 !important; /* Ép màu tối đề phòng style.css ghi đè */
+}
+.user-card p {
+  margin: 0 0 15px 0;
+  color: #777;
+  font-size: 13px;
+}
+.btn-logout {
+  background: #f5f6fa;
+  color: #ff4d4d;
+  border: 1px solid #ff4d4d;
+  padding: 8px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100%;
+  transition: 0.2s;
+}
+.btn-logout:hover {
+  background: #ff4d4d;
+  color: white;
+}
+
+.orders-container {
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+.orders-container h2 {
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  border-bottom: 2px solid #f5f6fa;
+  padding-bottom: 10px;
+  color: #333 !important; /* ✅ ĐÃ FIX: Ép chữ màu tối để không bị tàng hình trên nền trắng bồ nhé */
+}
+.order-block {
+  border: 1px solid #edf2f7;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  border-bottom: 1px dashed #edf2f7;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+.status-badge {
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 800;
+}
+.order-item-mini {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+}
+.order-total-row {
+  text-align: right;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #ff4d4d;
+  font-size: 15px;
+}
+.no-order {
+  text-align: center;
+  color: #aaa;
+  padding: 40px 0;
+}
+
+/* Hiệu ứng cho nút hủy đơn hàng */
+.btn-cancel-order {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 12px;
+  display: inline-block;
+  vertical-align: middle;
+  transition: all 0.2s;
+}
+.btn-cancel-order:hover {
+  background: #c23616;
+  transform: scale(1.05);
+}
