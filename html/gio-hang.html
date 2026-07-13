@@ -10,7 +10,127 @@
     />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/gio-hang.css" />
-    <style></style>
+    <style>
+      /* 🌟 KHU VỰC CSS FIX LỖI VỠ HÌNH KHỔNG LỒ (MỚI THÊM) */
+
+      /* Cấu trúc hàng dòng sản phẩm bọc ngoài */
+      .cart-item-row {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        background: #ffffff;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      /* Ép ảnh mô hình thu nhỏ lại chuẩn đét, hết tràn màn hình */
+      .cart-item-row img {
+        width: 90px;
+        height: 90px;
+        object-fit: contain; /* Giữ nguyên tỷ lệ mô hình không bị méo hình */
+        background: #f7fafc;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+        flex-shrink: 0;
+      }
+
+      /* Phần thông tin chữ (Tên + Giá) */
+      .cart-item-info {
+        flex: 1; /* Chiếm trọn không gian ở giữa để đẩy cụm số lượng về bên phải */
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .cart-item-info h4 {
+        font-size: 15px;
+        font-weight: 600;
+        color: #2d3748;
+        margin: 0;
+        line-height: 1.4;
+      }
+
+      .item-price {
+        color: #ff4d4d;
+        font-weight: 800;
+        font-size: 15px;
+      }
+
+      /* Cụm tăng giảm số lượng xịn sò */
+      .quantity-controls {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: #f7fafc;
+        padding: 4px;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .quantity-controls button {
+        width: 28px;
+        height: 28px;
+        border: 1px solid #cbd5e0;
+        background: #ffffff;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        user-select: none;
+      }
+
+      .quantity-controls button:hover {
+        background: #ff4d4d;
+        color: #ffffff;
+        border-color: #ff4d4d;
+      }
+
+      .quantity-controls span {
+        font-weight: 600;
+        min-width: 25px;
+        text-align: center;
+        font-size: 14px;
+        color: #2d3748;
+      }
+
+      /* Nút xóa sản phẩm tinh tế */
+      .btn-delete-item {
+        background: transparent;
+        color: #a0aec0;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 13px;
+        padding: 8px 12px;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+      }
+
+      .btn-delete-item:hover {
+        color: #ff4d4d;
+        background: #fff5f5;
+      }
+
+      /* Nhãn Pre-order đi kèm nếu có */
+      .badge-preorder {
+        background: #ff9f43;
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: 800;
+        padding: 2px 6px;
+        border-radius: 4px;
+        margin-left: 6px;
+        vertical-align: middle;
+        display: inline-block;
+      }
+    </style>
   </head>
   <body>
     <header>

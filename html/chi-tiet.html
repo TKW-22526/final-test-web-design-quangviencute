@@ -33,7 +33,7 @@
         transform: translateY(-2px);
       }
 
-      /* 🌟 KHU VỰC CSS ĐÁNH GIÁ KHÁCH HÀNG (MỚI THÊM) */
+      /* 🌟 KHU VỰC CSS ĐÁNH GIÁ KHÁCH HÀNG */
       .reviews-section {
         grid-column: span 2; /* Ép phần đánh giá trải dài hết cả 2 cột cho đẹp */
         margin-top: 60px;
@@ -89,7 +89,7 @@
       }
       .reviewer-name {
         font-weight: 600;
-        color: #333;
+        color: #f1e5e5;
         font-size: 14px;
       }
       .review-stars {
@@ -175,6 +175,80 @@
         <div class="spec-box">
           <h5>Thông số kỹ thuật:</h5>
           <div id="details" class="spec-content"></div>
+        </div>
+
+        <!-- 🔢 CỤM CHỌN SỐ LƯỢNG MUA (MỚI THÊM) -->
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 25px;
+            margin-bottom: 5px;
+          "
+        >
+          <span style="font-weight: 600; font-size: 14px; color: #ffffff"
+            >Số lượng:</span
+          >
+          <button
+            type="button"
+            onclick="
+              const input = document.getElementById('buy-qty');
+              input.value = Math.max(1, parseInt(input.value) - 1);
+            "
+            style="
+              width: 32px;
+              height: 32px;
+              border: 1px solid #ddd;
+              background: #fff;
+              cursor: pointer;
+              font-weight: bold;
+              border-radius: 4px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              user-select: none;
+            "
+          >
+            -
+          </button>
+          <input
+            type="number"
+            id="buy-qty"
+            value="1"
+            min="1"
+            style="
+              width: 50px;
+              height: 32px;
+              text-align: center;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              font-weight: 600;
+              -moz-appearance: textfield;
+            "
+          />
+          <button
+            type="button"
+            onclick="
+              const input = document.getElementById('buy-qty');
+              input.value = parseInt(input.value) + 1;
+            "
+            style="
+              width: 32px;
+              height: 32px;
+              border: 1px solid #ddd;
+              background: #fff;
+              cursor: pointer;
+              font-weight: bold;
+              border-radius: 4px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              user-select: none;
+            "
+          >
+            +
+          </button>
         </div>
 
         <div
@@ -389,13 +463,19 @@
             "Đang cập nhật thông số...";
         }
 
+        // 🛠️ ĐÃ CẬP NHẬT: Lấy số lượng thực tế từ ô nhập để truyền đi
         document.getElementById("addToCartBtn").onclick = function () {
-          addToCart(foundProduct.id);
+          const qty = parseInt(document.getElementById("buy-qty").value) || 1;
+          addToCart(foundProduct.id, qty);
         };
 
+        // 🛠️ ĐÃ CẬP NHẬT: Báo số lượng đặt trước rõ ràng trực quan luôn
         document.getElementById("preOrderBtn").onclick = function () {
+          const qty = parseInt(document.getElementById("buy-qty").value) || 1;
           alert(
-            "🎉 Đặt hàng trước thành công mô hình: " +
+            "🎉 Đặt hàng trước thành công " +
+              qty +
+              " mô hình: " +
               foundProduct.name +
               "!\nShop sẽ liên hệ bồ để xác nhận lịch về hàng sớm nhất nhé!",
           );
