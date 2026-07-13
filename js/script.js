@@ -1500,7 +1500,7 @@ const products = [
     details:
       "<b>Tỷ lệ:</b> 1/10<br><b>Chất liệu:</b> PVC cao cấp<br><b>Hãng:</b> BellFine<br><b>Phụ kiện:</b> Mũ bảo hiểm phi hành gia nhựa trong suốt (tháo rời được), các mảnh đá diorama trôi nổi được liên kết bằng trục trong suốt, đế mây hồng.",
   },
-]; // Bồ cứ giữ nguyên mảng danh sách sản phẩm của bồ ở đây nhé
+];
 
 // =========================================================
 // 2. TỰ ĐỘNG ĐỔI NÚT ĐĂNG NHẬP THÀNH TÊN USER TRÊN THANH MENU
@@ -1534,7 +1534,7 @@ function checkNavbarLogin() {
 document.addEventListener("DOMContentLoaded", checkNavbarLogin);
 
 // =========================================================
-// 3. HÀM TẠO CARD MÔ HÌNH DÂN CHƠI
+// 3. HÀM TẠO CARD MÔ HÌNH DÂN CHƠI (ĐÃ FIX LỖI VỠ HÌNH TRANG CHỦ)
 // =========================================================
 function createItem(obj, isInHtmlFolder = false) {
   const gridProducts = document.getElementById("productGrid");
@@ -1544,6 +1544,18 @@ function createItem(obj, isInHtmlFolder = false) {
     ? "chi-tiet.html?id=" + obj.id
     : "html/chi-tiet.html?id=" + obj.id;
 
+  // 🛠️ ĐÃ SỬA: Tự động xử lý đường dẫn ảnh thông minh cho 100+ sản phẩm
+  let imgSrc = obj.image;
+  if (isInHtmlFolder) {
+    // Nếu đang ở trong thư mục html (trang danh-muc, san-pham...), ảnh bắt buộc phải có ../ ở đầu
+    if (!imgSrc.startsWith("../")) {
+      imgSrc = "../" + imgSrc;
+    }
+  } else {
+    // Nếu đang ở ngoài Trang Chủ (index.html), tự động xóa dấu ../ đi để không bị vỡ hình
+    imgSrc = imgSrc.replace("../", "");
+  }
+
   const card = document.createElement("div");
   card.setAttribute("class", "product-card");
   card.setAttribute("data-type", obj.type);
@@ -1551,10 +1563,11 @@ function createItem(obj, isInHtmlFolder = false) {
   card.setAttribute("style", "cursor: pointer;");
   card.setAttribute("onclick", `window.location.href='${detailLink}'`);
 
+  // Thay đổi src="${obj.image}" thành src="${imgSrc}" đã được sửa lỗi
   card.innerHTML = `
     <div class="badge">${obj.badge}</div>
     <div class="img-container">
-      <img src="${obj.image}" alt="${obj.name}">
+      <img src="${imgSrc}" alt="${obj.name}">
     </div>
     <div class="product-info">
       <div class="product-series">${obj.series}</div>
