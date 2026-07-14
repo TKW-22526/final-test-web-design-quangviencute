@@ -175,10 +175,10 @@ Sinh viên cần nộp đầy đủ các nội dung sau:
 Sinh viên cập nhật thông tin cá nhân tại đây:
 
 ```text
-Họ và tên:
-Mã số sinh viên:
-Lớp:
-Tên đề tài:
-Liên kết GitHub repository:
-Liên kết GitHub Pages:
+Họ và tên:Võ Quang Viễn
+Mã số sinh viên:110125209
+Lớp:DA25TTA
+Tên đề tài:Thiết Kế Website Giới Thiệu Và Kinh Doanh Mô Hình SHK Shop
+Liên kết GitHub repository:https://github.com/TKW-22526/final-test-web-design-quangviencute.git
+Liên kết GitHub Pages:https://tkw-22526.github.io/final-test-web-design-quangviencute/
 ```
