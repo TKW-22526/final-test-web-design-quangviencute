@@ -10,7 +10,68 @@
     />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/san-pham.css" />
-    <style></style>
+    <style>
+      /* =========================================================
+         🌟 CSS TRANG TRÍ RIÊNG CHO THANH KÉO GIÁ
+         ========================================================= */
+      .price-filter-container {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 15px;
+        border-radius: 6px;
+        margin-top: 10px;
+      }
+
+      .price-filter-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        margin-bottom: 10px;
+        color: #ffffff;
+      }
+
+      #priceValue {
+        color: #ff4d4d;
+        font-weight: 800;
+        font-size: 15px;
+      }
+
+      /* Custom lại thanh trượt tròn */
+      #priceRange {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 3px;
+        outline: none;
+        cursor: pointer;
+        margin: 8px 0;
+      }
+
+      /* Nút tròn kéo */
+      #priceRange::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #ff4d4d;
+        box-shadow: 0 0 8px rgba(255, 77, 77, 0.6);
+        transition: transform 0.1s ease;
+      }
+
+      #priceRange::-webkit-slider-thumb:hover {
+        transform: scale(1.25);
+      }
+
+      .price-range-limits {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        color: #888;
+        margin-top: 5px;
+      }
+    </style>
   </head>
   <body>
     <header>
@@ -55,6 +116,30 @@
 
     <div class="main-container product-page-layout">
       <aside class="sidebar-filter">
+        <!-- 💰 1. BỘ LỌC KHOẢNG GIÁ -->
+        <div class="filter-group">
+          <h3>Khoảng Giá</h3>
+          <div class="price-filter-container">
+            <div class="price-filter-header">
+              <span>Tối đa:</span>
+              <span id="priceValue">10.000.000 đ</span>
+            </div>
+            <input
+              type="range"
+              id="priceRange"
+              min="0"
+              max="10000000"
+              step="100000"
+              value="10000000"
+            />
+            <div class="price-range-limits">
+              <span>0 đ</span>
+              <span>10.000.000 đ</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 🏷️ 2. BỘ LỌC DÒNG MÔ HÌNH -->
         <div class="filter-group">
           <h3>Dòng Mô Hình</h3>
           <div class="filter-options">
@@ -96,16 +181,6 @@
             >
           </div>
         </div>
-        <div class="filter-group">
-          <h3>Trạng Thái</h3>
-          <div class="filter-options">
-            <label><input type="radio" name="status" checked /> Tất cả</label>
-            <label><input type="radio" name="status" /> Sẵn hàng</label>
-            <label
-              ><input type="radio" name="status" /> Đặt trước (Pre-order)</label
-            >
-          </div>
-        </div>
       </aside>
 
       <section>
@@ -119,45 +194,71 @@
 
     <footer>
       <p>
-        &copy; 2026 <span>CRIMSON.GSC</span>. Assignment Thiết kế Web giới thiệu
-        Mô hình.
+        &copy; 2026 <span>SHK.SHOP</span>. Assignment Thiết kế Web giới thiệu Mô
+        hình.
       </p>
     </footer>
 
     <script src="../js/script.js"></script>
     <script>
       // =========================================================
-      // HÀM LỌC SẢN PHẨM THEO TRẠNG THÁI CHECKBOX
+      // HÀM KHỬ CHỮ SỐ TIỀN THÀNH SỐ ĐỂ SO SÁNH GIÁ (VD: "2.500.000 đ" -> 2500000)
       // =========================================================
-      function filterProductsByCheckbox() {
-        // 1. Gom tất cả các ô checkbox dòng mô hình đang được tích chọn
+      function parsePriceStringToNumber(priceStr) {
+        if (!priceStr) return 0;
+        let cleanString = String(priceStr).replace(/[^0-9]/g, "");
+        return Number(cleanString) || 0;
+      }
+
+      // =========================================================
+      // HÀM LỌC TỔNG HỢP (KẾT HỢP: CHECKBOX DÒNG MÔ HÌNH + THANH KÉO GIÁ)
+      // =========================================================
+      function filterProducts() {
+        // 1. Thu thập dữ liệu bộ lọc Dòng mô hình (Checkbox)
         const checkedBoxes = document.querySelectorAll(
           'input[name="type"]:checked',
         );
-
-        // 2. Chuyển đổi danh sách checkbox thành một mảng chứa các chữ giá trị
         const selectedTypes = Array.from(checkedBoxes).map((cb) => cb.value);
 
-        // 3. Nếu không tích chọn bất kỳ ô nào, ẩn sạch sản phẩm và báo lỗi
+        // Trường hợp người dùng tắt hết sạch checkbox -> báo không chọn dòng nào
         if (selectedTypes.length === 0) {
           document.getElementById("productGrid").innerHTML = `
-            <div style="grid-column: span 3; text-align: center; color: var(--text-muted); padding: 50px 0; font-size: 14px;">
+            <div style="grid-column: span 3; text-align: center; color: #888; padding: 50px 0; font-size: 14px;">
                 Bạn đã bỏ chọn tất cả các dòng! Không có mô hình nào để hiển thị.
             </div>`;
           return;
         }
 
-        // 4. Lọc mảng dữ liệu gốc `products`, giữ lại sản phẩm nào có 'type' nằm trong danh sách đã tích
-        const filteredResult = products.filter((item) =>
-          selectedTypes.includes(item.type),
-        );
+        // 2. Thu thập dữ liệu bộ lọc Khoảng giá (Slider)
+        const priceSlider = document.getElementById("priceRange");
+        const maxPrice = priceSlider ? parseInt(priceSlider.value) : 10000000;
 
-        // 5. Đổ lại danh sách đã lọc ra lưới sản phẩm
-        loadAllProducts(filteredResult, true);
+        // 3. Lọc mảng 'products' gốc dựa trên 2 tiêu chí còn lại
+        const filteredResult = products.filter((item) => {
+          // A. Khớp Dòng mô hình không?
+          const matchesType = selectedTypes.includes(item.type);
+
+          // B. Khớp mức Giá không?
+          const itemPriceValue = parsePriceStringToNumber(item.price);
+          const matchesPrice = itemPriceValue <= maxPrice;
+
+          // Thỏa mãn cả 2 tiêu chí thì mới hiển thị
+          return matchesType && matchesPrice;
+        });
+
+        // 4. Đổ lại danh sách sản phẩm sau lọc ra màn hình
+        if (filteredResult.length === 0) {
+          document.getElementById("productGrid").innerHTML = `
+            <div style="grid-column: span 3; text-align: center; color: #888; padding: 50px 0; font-size: 14px;">
+                Không tìm thấy mô hình nào phù hợp với mức giá đã chọn.
+            </div>`;
+        } else {
+          loadAllProducts(filteredResult, true);
+        }
       }
 
       // =========================================================
-      // ĐOẠN CODE ĐỌC TÍN HIỆU TỪ URL TRANG DANH MỤC TRUYỀN SANG
+      // ĐOẠN ĐỌC TÍN HIỆU TỪ URL TRANG DANH MỤC TRUYỀN SANG
       // =========================================================
       const urlParams = new URLSearchParams(window.location.search);
       const typeFromUrl = urlParams.get("type");
@@ -186,16 +287,29 @@
       // KÍCH HOẠT VÀ GẮN BỘ LẮNG NGHE SỰ KIỆN
       // =========================================================
 
-      // Chạy hàm lọc dựa trên cấu hình checkbox vừa setup ở trên
-      filterProductsByCheckbox();
+      // Chạy hàm lọc tổng hợp lần đầu tiên để dựng giao diện
+      filterProducts();
 
-      // Kích hoạt tính năng tìm kiếm qua ô #searchInput cho trang này
+      // Kích hoạt tính năng tìm kiếm qua ô #searchInput
       searchProducts(true);
 
-      // Gắn sự kiện 'change' (thay đổi) cho toàn bộ checkbox dòng mô hình
+      // Gắn sự kiện 'change' cho toàn bộ Checkbox dòng mô hình
       document.querySelectorAll('input[name="type"]').forEach((checkbox) => {
-        checkbox.addEventListener("change", filterProductsByCheckbox);
+        checkbox.addEventListener("change", filterProducts);
       });
+
+      // Gắn sự kiện 'input' để cập nhật số tiền và lọc thời gian thực khi kéo thanh giá
+      const priceRange = document.getElementById("priceRange");
+      const priceValue = document.getElementById("priceValue");
+      if (priceRange && priceValue) {
+        priceRange.addEventListener("input", function () {
+          // Định dạng lại hiển thị giá tiền trên thanh trượt
+          priceValue.innerText =
+            parseInt(this.value).toLocaleString("vi-VN") + " đ";
+          // Kích hoạt lọc lại ngay lập tức khi kéo
+          filterProducts();
+        });
+      }
     </script>
   </body>
 </html>
